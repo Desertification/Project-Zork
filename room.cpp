@@ -15,7 +15,7 @@ std::string Room::explore() {
     // iterate every connection the room has (also instruction)
     for (unsigned int i = 0; i < connections.size(); i++) {
         result += connections[i]->description(this) + "\r\n";
-        result += "INSERT: \"" + connections[i]->instruction(this) + "\" to go there \r\n";
+        result += "INSERT: go \"" + connections[i]->instruction(this) + "\" to go there \r\n";
     }
     return result;
 }
