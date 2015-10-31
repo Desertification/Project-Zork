@@ -43,8 +43,16 @@ int main() {
 
     if(stringVector.front() == "go"){
         cout << stringVector.back() << endl;
-        current_room = current_room->go(stringVector.back());
-        cout << current_room->explore();
+        if (current_room->go(stringVector.back()) == NULL) {
+            cout << "No such room aviable" << endl;
+        } else {
+            current_room = current_room->go(stringVector.back());
+            cout << current_room->explore();
+        }
+    }
+
+    else{
+        cout << "No such command";
     }
 
 

@@ -30,7 +30,7 @@ Room* Room::go(std::string instruction) {
     while (i < connections.size() && connections[i]->instruction(this) != instruction) { // we are using lazy evaluation here
         i++;
     }
-    if (i < connections.size()){
+    if (i < connections.size()) {
         return connections[i]->getOppositeRoom(this);
     }
     return NULL; // todo call explore on the new room
