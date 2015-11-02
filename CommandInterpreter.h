@@ -15,8 +15,9 @@
 class CommandInterpreter {
 private:
     Room* current_room;
+    int* exit;
 public:
-    CommandInterpreter(Room*);
+    CommandInterpreter(Room*, int*);
     void interpretInput(std::string);
     std::vector<std::string> split(const std::string &text, char sep);
 };

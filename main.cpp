@@ -13,17 +13,18 @@ int main() {
     kitchen.addConnection(&from_kitchen_to_cellar);
     hallway.addConnection(&from_kitchen_to_cellar);
 
+    int exit = 0;
     Room* current_room = &kitchen;
-    CommandInterpreter interpreter(current_room);
+    CommandInterpreter interpreter(current_room, &exit);
     cout << current_room->explore();
-    //current_room = current_room->go("go hallway");
-    //cout << current_room->explore();
 
-    //define command string, and get the input
-    string command;
-    getline(cin, command);
-    //interpret the input
-    interpreter.interpretInput(command);
+    while(exit == 0) {
+        //define command string, and get the input
+        string command;
+        getline(cin, command);
+        //interpret the input
+        interpreter.interpretInput(command);
+    }
 
     return 0;
 }

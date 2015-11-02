@@ -4,19 +4,25 @@
 
 #include "CommandInterpreter.h"
 
-CommandInterpreter::CommandInterpreter(Room* current_room){
+CommandInterpreter::CommandInterpreter(Room* current_room, int* exit){
     this->current_room = current_room;
+    this->exit = exit;
 }
 
 void CommandInterpreter::interpretInput(std::string input) {
     //split the string
     std::vector<std::string> stringVector= split(input, ' ');
-//  //output each word of the input
-//    for (string enkele : stringVector) {
-//        cout << enkele << endl;
-//    }
 
-    if(stringVector.front() == "go"){
+    //to exit the application, both the first and last word need to be exit, to allow for later implementation of
+    //something like "exit dungeon"
+    if(stringVector.front() == "exit"){
+        if(stringVector.back() == "exit"){
+            *exit = 1;
+        }
+    }
+
+    //if the command is go
+    else if(stringVector.front() == "go"){
         std::cout << stringVector.back() << std::endl;
         if (current_room->go(stringVector.back()) == NULL) {
             std::cout << "No such room aviable" << std::endl;
