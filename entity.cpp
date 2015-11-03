@@ -5,10 +5,12 @@
 #include <string>
 #include "entity.h"
 
-Entity::Entity(std::string, int health) {
+Entity::Entity(std::string name, int health) {
     this->name = name;
     this->health = health;
 }
+
+
 int Entity::getHealth() {
     return health;
 }
