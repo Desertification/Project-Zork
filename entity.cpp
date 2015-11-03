@@ -5,9 +5,12 @@
 #include <string>
 #include "entity.h"
 
-Entity::Entity(std::string name, int health) {
+Entity::Entity(std::string name, int health,int stamina, int quickness, int armor) {
     this->name = name;
     this->health = health;
+    this->stamina = stamina;
+    this->quickness = quickness;
+    this->armor = armor;
 }
 
 
@@ -17,6 +20,6 @@ int Entity::getHealth() {
 std::string Entity::getName() {
     return name;
 }
-int Entity::takeDamage(int dammage) {
-    return health - dammage;
+int Entity::takeDamage(int attack, int attackQuickness) {
+    //return health - dammage;
 }
