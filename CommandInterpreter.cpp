@@ -2,6 +2,7 @@
 // Created by alex on 10/31/15.
 //
 
+#include <random>
 #include "CommandInterpreter.h"
 
 CommandInterpreter::CommandInterpreter(Room* current_room, int* exit){
@@ -42,6 +43,13 @@ void CommandInterpreter::interpretInput(std::string input) {
             for(std::string command: possibleCommands){
                 std::cout << command << std::endl;
             }
+        }
+
+        //show a random number, going to let this in the code as a kind of easter egg
+        if(stringVector.back()=="random"){
+            std::random_device* randomDevice = new std::random_device();
+            std::cout << randomDevice->operator()() << std::endl;
+            std::cout << randomDevice->operator()() % 100 << std::endl;
         }
     }
 
