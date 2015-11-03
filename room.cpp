@@ -36,4 +36,8 @@ Room* Room::go(std::string instruction) {
     return NULL; // todo call explore on the new room
 }
 
+std::vector<Connection*>* Room::getConnections(){
+    return &connections;
+}
+
 

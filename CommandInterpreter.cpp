@@ -24,17 +24,43 @@ void CommandInterpreter::interpretInput(std::string input) {
     //if the command is go
     else if(stringVector.front() == "go"){
         std::cout << stringVector.back() << std::endl;
+        //if the room isn't recognized
         if (current_room->go(stringVector.back()) == NULL) {
             std::cout << "No such room aviable" << std::endl;
         } else {
+            //if the room is recognized, go to the new room, and explore it
             current_room = current_room->go(stringVector.back());
             std::cout << current_room->explore();
+        }
+    }
+
+    //if the command is get
+    else if(stringVector.front()=="show"){
+        //return all available commands
+        if(stringVector.back()=="commands"){
+            std::vector<std::string> possibleCommands = getPossibleCommands();
+            for(std::string command: possibleCommands){
+                std::cout << command << std::endl;
+            }
         }
     }
 
     else{
         std::cout << "No such command" << std::endl;
     }
+}
+
+std::vector<std::string> CommandInterpreter::getPossibleCommands() {
+    std::vector<std::string> possibleCommands;
+    //show special commands
+    possibleCommands.push_back("\"show commands\"");
+    //show all possible rooms
+    std::vector<Connection*>* connections = current_room->getConnections();
+    for(Connection* connection : *connections){
+        std::string commando = "\"go " +connection->instruction(current_room) + "\"";
+        possibleCommands.push_back(commando);
+    }
+    return possibleCommands;
 }
 
 //split the string

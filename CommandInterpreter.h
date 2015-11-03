@@ -19,6 +19,7 @@ private:
 public:
     CommandInterpreter(Room*, int*);
     void interpretInput(std::string);
+    std::vector<std::string> getPossibleCommands();
     std::vector<std::string> split(const std::string &text, char sep);
 };
 

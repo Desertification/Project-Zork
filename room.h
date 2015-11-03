@@ -21,6 +21,7 @@ public:
     std::string explore();
     void addConnection(Connection*);
     Room* go(std::string);
+    std::vector<Connection*>* getConnections();
 };
 
 
