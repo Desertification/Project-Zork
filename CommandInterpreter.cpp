@@ -4,9 +4,11 @@
 
 #include "CommandInterpreter.h"
 
-CommandInterpreter::CommandInterpreter(Room* current_room, int* exit){
+//TODO: refractor with a better command parser (https://github.com/BioBoost/cpp_creeps_command_parser)
+CommandInterpreter::CommandInterpreter(Room* current_room, int* exit, Hero* hero){
     this->current_room = current_room;
     this->exit = exit;
+    this->hero = hero;
 }
 
 void CommandInterpreter::interpretInput(std::string input) {
@@ -23,10 +25,9 @@ void CommandInterpreter::interpretInput(std::string input) {
 
     //if the command is go
     else if(stringVector.front() == "go"){
-        std::cout << stringVector.back() << std::endl;
         //if the room isn't recognized
         if (current_room->go(stringVector.back()) == NULL) {
-            std::cout << "No such room aviable" << std::endl;
+            sout("No such room aviable");
         } else {
             //if the room is recognized, go to the new room, and explore it
             current_room = current_room->go(stringVector.back());
@@ -40,23 +41,62 @@ void CommandInterpreter::interpretInput(std::string input) {
         if(stringVector.back()=="commands"){
             std::vector<std::string> possibleCommands = getPossibleCommands();
             for(std::string command: possibleCommands){
-                std::cout << command << std::endl;
+                sout(command);
             }
         }
 
         //show a random number, going to let this in the code as a kind of easter egg
-        if(stringVector.back()=="random"){
+        else if(stringVector.back()=="random"){
             std::random_device* randomDevice = new std::random_device();
             std::cout << randomDevice->operator()() << std::endl;
             std::cout << randomDevice->operator()() % 100 << std::endl; //between 0 and 100
             delete randomDevice;
         }
+        else{
+            sout("No such command");
+        }
+    }
+
+        //if the command is attack
+    else if(stringVector.front()=="attack"){
+        //get all the monsters in the current room
+        std::vector<Monster*>* monsters = current_room->getMonsters();
+        //check if the monster is in the room
+        unsigned int contains = 0;
+        Monster* combatMoster;
+        for(Monster* monster : *monsters){
+            if (monster->getName()==stringVector.back()){
+                combatMoster = monster;
+                contains = 1;
+            }
+        }
+        if(contains==1){
+            int inCombat=true;
+            sout("you are now in combat");
+            do{
+                sout(std::string("fast attack (damage :") + std::to_string(hero->getDamage()-combatMoster->getArmor()) + " chance to hit : " + std::to_string(
+                        100 - combatMoster->getChanceToDodge(hero->getQuickness())) + " %");
+                sout("INSERT: \"fast attack\" for a normal attack");
+                sout(std::string("strong attack (damage :") + std::to_string(hero->getDamage()*2-combatMoster->getArmor()) + " chance to hit : " + std::to_string(
+                        100 - combatMoster->getChanceToDodge(hero->getQuickness() / 2)) + " %");
+                sout("INSERT: \"strong attack\" for a strong attack");
+                sout("the enemy has " + std::to_string(combatMoster->getHealth()) + " hp");
+                inCombat = false;
+
+            }while(inCombat);
+        }
+        else{
+            sout("no such monster in this room");
+        }
     }
 
     else{
-        std::cout << "No such command" << std::endl;
+        sout("No such command");
     }
 }
+
+void CommandInterpreter::sout(std::string message) {
+    std::cout << message << std::endl; }
 
 std::vector<std::string> CommandInterpreter::getPossibleCommands() {
     std::vector<std::string> possibleCommands;
@@ -68,6 +108,12 @@ std::vector<std::string> CommandInterpreter::getPossibleCommands() {
             std::string commando = "\"go " +connection->instruction(current_room) + "\"";
             possibleCommands.push_back(commando);
         }
+        //show all possible monsters
+    std::vector<Monster*>* monsters = current_room->getMonsters();
+    for(Monster* monster : *monsters){
+        std::string commando = "\"attack " +monster->getName() + "\"";
+        possibleCommands.push_back(commando);
+    }
         possibleCommands.push_back("\"exit\"");
     return possibleCommands;
 }

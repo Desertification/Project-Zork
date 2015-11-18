@@ -6,6 +6,7 @@
 
 using namespace std;
 
+//TODO put all this stuff in another class
 int main() {
     Room kitchen("some dark omnious kitchen\nyou feel a chill going down your spine\n");
     Room hallway("some spooky hallway\nscreams echo in the distance\n");
@@ -15,8 +16,8 @@ int main() {
     hallway.addConnection(&from_kitchen_to_cellar);
 
     //monsters
-    Monster* spider = new Monster("spider", 1, 3, 20, 10, 40,0,2);
-    hallway.addMonster(spider);
+    Monster* spider = new Monster("spider", 1, 3, 20, 10, 100,0,2);
+    kitchen.addMonster(spider);
 
     //the start, maybe make tutorial here, maybe even a function to load a previous game
     cout << "please enter the username you want to use" << endl;
@@ -27,7 +28,7 @@ int main() {
     //the standard game
     int exit = 0;
     Room* current_room = &kitchen;
-    CommandInterpreter interpreter(current_room, &exit);
+    CommandInterpreter interpreter(current_room, &exit, hero);
     cout << current_room->explore();
 
     while(exit == 0) {

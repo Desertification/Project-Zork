@@ -11,6 +11,7 @@
 class Monster: public Entity {
 private:
     int aggressiveness;
+    //-1:dead
     //1:ignores all combat
     //2:joins when another engaged in combat together
     //3:attacks as soon you enter its territory

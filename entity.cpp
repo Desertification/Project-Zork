@@ -33,8 +33,13 @@ int Entity::getArmor() {
 std::string Entity::getName() {
     return name;
 }
+
+int Entity::getDamage() {
+    return damage;
+}
+
 int Entity::takeDamage(int attack, int attackQuickness) {
-    int dodge_chance = ( quickness *  stamina )- attackQuickness;
+    int dodge_chance = quickness - attackQuickness;
     int randomNumber = getRandomNumber(100);
     stamina --;
     if(dodge_chance<=randomNumber){
@@ -43,8 +48,13 @@ int Entity::takeDamage(int attack, int attackQuickness) {
     else{
         int hurt = attack - armor;
         health = health - hurt;
-        return hurt;
+        return health;
     }
+}
+
+int Entity::getChanceToDodge(int attackQuickness) {
+    int dodge_chance = quickness - attackQuickness;
+    return dodge_chance;
 }
 
 int Entity::getRandomNumber(int max) {

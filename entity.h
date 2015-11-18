@@ -21,11 +21,12 @@ class Entity {
 public:
     Entity(std::string, int health, int stamina, int quickness, int armor, int damage);
     std::string getName();
+    int getChanceToDodge(int attackQuickness);
     int getHealth();
     int getStamina();
     int getQuickness();
     int getArmor();
     int getDamage();
-    int takeDamage(int, int);
+    int takeDamage(int attack, int attackQuickness);
 };
 #endif //GAMETEST_ENTITY_H
