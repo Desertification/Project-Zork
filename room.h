@@ -9,6 +9,7 @@
 #include <string>
 #include <vector>
 #include "connection.h"
+#include "Monster.h"
 
 class Connection; //foreward declaration of room class, these classes reference each other, compiler can't compile them at the same time, so it keeps cycling between them
 
@@ -16,12 +17,15 @@ class Room {
 private:
     std::string description;
     std::vector <Connection*> connections;
+    std::vector <Monster*> monsters;
 public:
     Room(std::string);
     std::string explore();
     void addConnection(Connection*);
     Room* go(std::string);
     std::vector<Connection*>* getConnections();
+    void addMonster(Monster*);
+    std::vector<Monster*>* getMonsters();
 };
 
 

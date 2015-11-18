@@ -40,4 +40,11 @@ std::vector<Connection*>* Room::getConnections(){
     return &connections;
 }
 
+void Room::addMonster(Monster * monster) {
+    monsters.push_back(monster);
+}
+
+std::vector<Monster*>* Room::getMonsters() {
+    return &monsters;
+}
 
