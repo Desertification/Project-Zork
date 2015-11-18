@@ -16,7 +16,7 @@ int main() {
     hallway.addConnection(&from_kitchen_to_cellar);
 
     //monsters
-    Monster* spider = new Monster("spider", 1, 3, 20, 10, 100,0,2);
+    Monster* spider = new Monster("spider", 1, 3, 20, 10, 70,0,2);
     kitchen.addMonster(spider);
 
     //the start, maybe make tutorial here, maybe even a function to load a previous game

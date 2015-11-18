@@ -42,13 +42,13 @@ int Entity::takeDamage(int attack, int attackQuickness) {
     int dodge_chance = quickness - attackQuickness;
     int randomNumber = getRandomNumber(100);
     stamina --;
-    if(dodge_chance<=randomNumber){
+    if(dodge_chance>=randomNumber){
         return -1;
     }
     else{
         int hurt = attack - armor;
         health = health - hurt;
-        return health;
+        return hurt;
     }
 }
 

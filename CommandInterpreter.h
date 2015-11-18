@@ -19,12 +19,16 @@ private:
     Room* current_room;
     int* exit;
     Hero* hero;
+
+    int damageGivenMethod(Monster *combatMoster, int damageGiven);
 public:
     CommandInterpreter(Room*, int*, Hero*);
     void interpretInput(std::string);
     std::vector<std::string> getPossibleCommands();
     std::vector<std::string> split(const std::string &text, char sep);
     void sout(std::string message);
+
+
 };
 
 
