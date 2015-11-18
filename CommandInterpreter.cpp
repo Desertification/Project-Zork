@@ -61,13 +61,14 @@ void CommandInterpreter::interpretInput(std::string input) {
 std::vector<std::string> CommandInterpreter::getPossibleCommands() {
     std::vector<std::string> possibleCommands;
     //show special commands
-    possibleCommands.push_back("\"show commands\"");
-    //show all possible rooms
-    std::vector<Connection*>* connections = current_room->getConnections();
-    for(Connection* connection : *connections){
-        std::string commando = "\"go " +connection->instruction(current_room) + "\"";
-        possibleCommands.push_back(commando);
-    }
+        possibleCommands.push_back("\"show commands\"");
+        //show all possible rooms
+        std::vector<Connection*>* connections = current_room->getConnections();
+        for(Connection* connection : *connections){
+            std::string commando = "\"go " +connection->instruction(current_room) + "\"";
+            possibleCommands.push_back(commando);
+        }
+        possibleCommands.push_back("\"exit\"");
     return possibleCommands;
 }
 
