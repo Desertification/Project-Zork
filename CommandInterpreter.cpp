@@ -2,7 +2,6 @@
 // Created by alex on 10/31/15.
 //
 
-#include <random>
 #include "CommandInterpreter.h"
 
 CommandInterpreter::CommandInterpreter(Room* current_room, int* exit){
@@ -49,7 +48,8 @@ void CommandInterpreter::interpretInput(std::string input) {
         if(stringVector.back()=="random"){
             std::random_device* randomDevice = new std::random_device();
             std::cout << randomDevice->operator()() << std::endl;
-            std::cout << randomDevice->operator()() % 100 << std::endl;
+            std::cout << randomDevice->operator()() % 100 << std::endl; //between 0 and 100
+            delete randomDevice;
         }
     }
 
