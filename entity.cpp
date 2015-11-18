@@ -39,7 +39,8 @@ int Entity::getDamage() {
 }
 
 int Entity::takeDamage(int attack, int attackQuickness) {
-    int dodge_chance = quickness - attackQuickness;
+    //TODO make the damage sort of a range, and randomly choose from between these ranges
+    int dodge_chance = getChanceToDodge(attackQuickness);
     int randomNumber = getRandomNumber(100);
     stamina --;
     if(dodge_chance>=randomNumber){

@@ -19,7 +19,6 @@ private:
     Room* current_room;
     int* exit;
     Hero* hero;
-
     int damageGivenMethod(Monster *combatMoster, int damageGiven);
 public:
     CommandInterpreter(Room*, int*, Hero*);

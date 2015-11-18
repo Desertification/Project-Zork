@@ -71,6 +71,7 @@ void CommandInterpreter::interpretInput(std::string input) {
             }
         }
         if (contains == 1) {
+            //TODO make it so that you and the monster are interchangeble
             int inCombat = true;
             sout("you are now in combat");
             do {
@@ -89,6 +90,7 @@ void CommandInterpreter::interpretInput(std::string input) {
 
                 //managing the input
                 int mistake = false;
+                //TODO may put the different attack possibilities in the hero class
                 do {
                     std::string command;
                     getline(std::cin, command);
@@ -111,8 +113,20 @@ void CommandInterpreter::interpretInput(std::string input) {
                     }
                 } while (mistake);
 
-
-                //now the monsters turn to attack, just in case
+                //now the monsters turn to attack, unless it's already dead
+                if(inCombat){
+                    int damageGiven =  hero->takeDamage(combatMoster->getDamage(), hero->getQuickness());
+                    if (damageGiven == -1) {
+                        sout("you dodged an attack from" + combatMoster->getName());
+                    } else {
+                        sout(combatMoster->getName()+ " dealt " + std::to_string(damageGiven) + " to you");
+                        if (combatMoster->getHealth() <= 0) {
+                            //TODO make a game over
+                            sout("you died!");
+                        }else{
+                        }
+                    }
+                }
 
 
             } while (inCombat);
