@@ -1,10 +1,10 @@
 #include <iostream>
+#include <sstream>
 #include "room.h"
 #include "CommandInterpreter.h"
-#include "Hero.h"
-#include "Monster.h"
 
 using namespace std;
+
 
 //TODO put all this stuff in another class
 int main() {
