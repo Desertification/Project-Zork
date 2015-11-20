@@ -1,15 +1,11 @@
 //
-// Created by alex on 11/19/15.
+// Created by alex on 11/20/15.
 //
 
 #ifndef GAMETEST_COMMAND_H
 #define GAMETEST_COMMAND_H
 
-
-#include <iostream>
-#include <string>
-#include <vector>
-#include <sstream>
+#include "Game.h"
 
 class Command {
 public:
