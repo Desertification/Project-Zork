@@ -9,7 +9,7 @@
 #include <string>
 #include <vector>
 #include "connection.h"
-#include "Living_Things/Monster.h"
+#include "../Living_Things/Monster.h"
 
 class Connection; //foreward declaration of room class, these classes reference each other, compiler can't compile them at the same time, so it keeps cycling between them
 

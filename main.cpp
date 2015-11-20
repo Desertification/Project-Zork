@@ -1,9 +1,10 @@
 #include <iostream>
 #include <sstream>
-#include "room.h"
 #include "Living_Things/Hero.h"
 #include "Command_parser/Game.h"
 #include "Command_parser/CommandParser.h"
+#include "Living_Things/Monster.h"
+#include "Spatial/room.h"
 
 using namespace std;
 
