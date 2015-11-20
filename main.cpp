@@ -48,7 +48,7 @@ int main() {
 #include <vector>
 #include <sstream>
 #include "Game.h"
-#include "Command.h"
+#include "Command_parser/Command.h"
 
 using namespace std;
 

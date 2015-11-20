@@ -5,7 +5,7 @@
 #ifndef GAMETEST_COMMAND_H
 #define GAMETEST_COMMAND_H
 
-#include "Game.h"
+#include "../Game.h"
 
 class Command {
 public:
