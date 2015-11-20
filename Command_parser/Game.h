@@ -16,8 +16,6 @@ public:
     void sayHello(std::vector<std::string> * params);
     void sayBye(std::vector<std::string> * params);
     void go(std::vector<std::string> * params);
-
-
 };
 
 
