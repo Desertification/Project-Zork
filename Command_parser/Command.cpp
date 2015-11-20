@@ -3,7 +3,7 @@
 //
 
 #include "Command.h"
-#include "../Game.h"
+#include "Game.h"
 
 Command::Command(std::string key, commandPointer function) {
     this->key = key;
