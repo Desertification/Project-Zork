@@ -9,8 +9,6 @@ startClass::startClass() {
     CommandParser parser;
     Game game;
 
-    game.init();
-
     //add the commands
     parser.registerCommand("sayhello", &Game::sayHello);
     parser.registerCommand("saybye", &Game::sayBye);

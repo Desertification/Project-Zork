@@ -15,11 +15,19 @@
 
 class Game {
 private:
+    Room * kitchen;
+    Room * hallway;
+    Connection * from_kitchen_to_cellar;
+
+    Monster *spider;
+
     Room* current_room;
     Hero* hero;
 
+
+    void sout(std::string message);
 public:
-    void init();
+    Game();
 
     void sayHello(std::vector<std::string> * params);
     void sayBye(std::vector<std::string> * params);
