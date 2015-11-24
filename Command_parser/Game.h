@@ -26,12 +26,14 @@ private:
 
 
     void sout(std::string message);
+    void showPossibleCommands();
 public:
     Game();
 
     void sayHello(std::vector<std::string> * params);
     void sayBye(std::vector<std::string> * params);
     void go(std::vector<std::string> * params);
+    void show(std::vector<std::string> * params);
 
 
 };

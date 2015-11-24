@@ -13,6 +13,7 @@ startClass::startClass() {
     parser.registerCommand("sayhello", &Game::sayHello);
     parser.registerCommand("saybye", &Game::sayBye);
     parser.registerCommand("go", &Game::go);
+    parser.registerCommand("show", &Game::show);
 
     //integer to exit the game
     int exit = 0;

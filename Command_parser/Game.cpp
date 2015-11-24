@@ -52,6 +52,48 @@ void Game::go(std::vector<std::string> * params) {
     }
 }
 
+void Game::show(std::vector<std::string> *params) {
+    //return all available commands
+    if ((*params)[0] == "commands") {
+        showPossibleCommands();
+    }
+
+        //show a random number, going to let this in the code as a kind of easter egg
+    else if ((*params)[0] == "random") {
+        std::random_device *randomDevice = new std::random_device();
+        std::cout << randomDevice->operator()() << std::endl;
+        std::cout << randomDevice->operator()() % 100 << std::endl; //between 0 and 100
+        delete randomDevice;
+    }
+    else {
+        sout("No such command");
+    }
+}
+
+void Game::showPossibleCommands(){
+    std::vector<std::string> possibleCommands;
+    //show special commands
+    possibleCommands.push_back("\"show commands\"");
+    //show all possible rooms
+    std::vector<Connection *> *connections = current_room->getConnections();
+    for (Connection *connection : *connections) {
+        std::string commando = "\"go " + connection->instruction(current_room) + "\"";
+        possibleCommands.push_back(commando);
+    }
+    //show all possible monsters
+    std::vector<Monster *> *monsters = current_room->getMonsters();
+    for (Monster *monster : *monsters) {
+        std::string commando = "\"attack " + monster->getName() + "\"";
+        possibleCommands.push_back(commando);
+    }
+    possibleCommands.push_back("\"exit\"");
+
+    //print all this stuff
+    for (std::string command: possibleCommands) {
+        sout(command);
+    }
+}
+
 void Game::sout(std::string message) {
     std::cout << message << std::endl;
 }
