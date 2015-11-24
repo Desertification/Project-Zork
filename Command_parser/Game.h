@@ -9,13 +9,23 @@
 #include <string>
 #include <vector>
 #include <sstream>
+#include "../Living_Things/Monster.h"
+#include "../Spatial/connection.h"
+#include "../Living_Things/Hero.h"
 
 class Game {
+private:
+    Room* current_room;
+    Hero* hero;
 
 public:
+    void init();
+
     void sayHello(std::vector<std::string> * params);
     void sayBye(std::vector<std::string> * params);
     void go(std::vector<std::string> * params);
+
+
 };
 
 
