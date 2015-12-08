@@ -16,6 +16,7 @@ Game::Game(int * exit) {
     //add all the monsters
     spider = new Monster("spider", 1, 3, 20, 10, 70, 0, 2);
 
+    //assign monsters to a room
     kitchen->addMonster(spider);
 
     //the start, maybe make tutorial here, maybe even a function to load a previous game
@@ -32,67 +33,98 @@ Game::Game(int * exit) {
 }
 
 void Game::sayHello(std::vector<std::string> * params) {
-    std::cout << "Dude ... HELLLLLLOOOOO ......" << std::endl;
+    //switch for when in combat
+    switch(status) {
+        case 1:
+            inCombat();
+            break;
+        default:
+        std::cout << "Dude ... HELLLLLLOOOOO ......" << std::endl;
+    }
 }
 
 void Game::sayBye(std::vector<std::string> * params) {
-    std::cout << "Dude ... BE GONEEEEE ......" << std::endl;
+    switch(status) {
+        case 1:
+            inCombat();
+            break;
+        default:
+            std::cout << "Dude ... BE GONEEEEE ......" << std::endl;
+    }
 }
 
 void Game::go(std::vector<std::string> * params) {
-    if (params->size() >= 1) {
-        std::cout << "Going to room " << (*params)[0] << std::endl;
-        //if the room isn't recognized
-        if (current_room->go((*params)[0]) == NULL) {
-            sout("No such room aviable");
-        } else {
-            sout("test");
-            //if the room is recognized, go to the new room, and explore it
-            current_room = current_room->go((*params)[0]);
-            std::cout << current_room->explore();
-        }
+    switch(status) {
+        case 1:
+            inCombat();
+            break;
+        default:
+            if (params->size() >= 1) {
+                std::cout << "Going to room " << (*params)[0] << std::endl;
+                //if the room isn't recognized
+                if (current_room->go((*params)[0]) == NULL) {
+                    sout("No such room aviable");
+                } else {
+                    sout("test");
+                    //if the room is recognized, go to the new room, and explore it
+                    current_room = current_room->go((*params)[0]);
+                    std::cout << current_room->explore();
+                }
+            }
     }
 }
 
 void Game::show(std::vector<std::string> *params) {
-    //return all available commands
-    if ((*params)[0] == "commands") {
-        showPossibleCommands();
-    }
+    switch(status) {
+        case 1:
+            inCombat();
+            break;
+        default:
+            //return all available commands
+            if ((*params)[0] == "commands") {
+                showPossibleCommands();
+            }
 
-        //show a random number, going to let this in the code as a kind of easter egg
-    else if ((*params)[0] == "random") {
-        std::random_device *randomDevice = new std::random_device();
-        std::cout << randomDevice->operator()() << std::endl;
-        std::cout << randomDevice->operator()() % 100 << std::endl; //between 0 and 100
-        delete randomDevice;
-    }
-    else {
-        sout("No such command");
+                //show a random number, going to let this in the code as a kind of easter egg
+            else if ((*params)[0] == "random") {
+                std::random_device *randomDevice = new std::random_device();
+                std::cout << randomDevice->operator()() << std::endl;
+                std::cout << randomDevice->operator()() % 100 << std::endl; //between 0 and 100
+                delete randomDevice;
+            }
+            else {
+                sout("No such command");
+            }
     }
 }
 
 void Game::showPossibleCommands(){
-    std::vector<std::string> possibleCommands;
-    //show special commands
-    possibleCommands.push_back("\"show commands\"");
-    //show all possible rooms
-    std::vector<Connection *> *connections = current_room->getConnections();
-    for (Connection *connection : *connections) {
-        std::string commando = "\"go " + connection->instruction(current_room) + "\"";
-        possibleCommands.push_back(commando);
-    }
-    //show all possible monsters
-    std::vector<Monster *> *monsters = current_room->getMonsters();
-    for (Monster *monster : *monsters) {
-        std::string commando = "\"attack " + monster->getName() + "\"";
-        possibleCommands.push_back(commando);
-    }
-    possibleCommands.push_back("\"exit\"");
+    switch(status) {
+        case 1:
+            inCombat();
+            break;
+        default:
+            std::vector<std::string> possibleCommands;
+            //show special commands
+            possibleCommands.push_back("\"show commands\"");
+            //show all possible rooms
+            std::vector<Connection *> *connections = current_room->getConnections();
+            for (Connection *connection : *connections) {
+                std::string commando = "\"go " + connection->instruction(current_room) + "\"";
+                possibleCommands.push_back(commando);
+            }
+            //show all possible monsters
+            std::vector<Monster *> *monsters = current_room->getMonsters();
+            for (Monster *monster : *monsters) {
+                std::string commando = "\"attack " + monster->getName() + "\"";
+                possibleCommands.push_back(commando);
+            }
+            possibleCommands.push_back("\"exit\"");
 
-    //print all this stuff
-    for (std::string command: possibleCommands) {
-        sout(command);
+            //print all this stuff
+            for (std::string command: possibleCommands) {
+                sout(command);
+            }
     }
 }
 
@@ -102,4 +134,8 @@ void Game::sout(std::string message) {
 
 void Game::exit(std::vector<std::string> *params) {
     *quit = 1;
+}
+
+void Game::inCombat() {
+    sout("I'm sorry, i can't let you do that while you're in combat.");
 }

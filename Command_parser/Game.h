@@ -26,9 +26,12 @@ private:
 
     int * quit;
 
+    int status = 0; //status = 0 when in normal mode, 1 when in combat mode
+
 
     void sout(std::string message);
     void showPossibleCommands();
+    void inCombat();
 public:
     Game(int * exit);
 
