@@ -19,6 +19,8 @@ startClass::startClass() {
     parser.registerCommand("go", &Game::go);
     parser.registerCommand("show", &Game::show);
     parser.registerCommand("exit", &Game::exit);
+    parser.registerCommand("attack", &Game::attack);
+
 
 
 

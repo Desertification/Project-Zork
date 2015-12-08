@@ -40,6 +40,9 @@ public:
     void go(std::vector<std::string> * params);
     void show(std::vector<std::string> * params);
     void exit(std::vector<std::string> * params);
+    //all combat related commands
+    void attack(std::vector<std::string> * params); //go in combat
+
 
 
 

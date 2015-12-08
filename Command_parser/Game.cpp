@@ -32,6 +32,48 @@ Game::Game(int * exit) {
     this->quit=exit;
 }
 
+void Game::sout(std::string message) {
+    std::cout << message << std::endl;
+}
+
+void Game::exit(std::vector<std::string> *params) {
+    *quit = 1;
+}
+
+void Game::inCombat() {
+    sout("I'm sorry, i can't let you do that while you're in combat.");
+}
+
+void Game::showPossibleCommands(){
+    switch(status) {
+        case 1:
+            inCombat();
+            break;
+        default:
+            std::vector<std::string> possibleCommands;
+            //show special commands
+            possibleCommands.push_back("\"show commands\"");
+            //show all possible rooms
+            std::vector<Connection *> *connections = current_room->getConnections();
+            for (Connection *connection : *connections) {
+                std::string commando = "\"go " + connection->instruction(current_room) + "\"";
+                possibleCommands.push_back(commando);
+            }
+            //show all possible monsters
+            std::vector<Monster *> *monsters = current_room->getMonsters();
+            for (Monster *monster : *monsters) {
+                std::string commando = "\"attack " + monster->getName() + "\"";
+                possibleCommands.push_back(commando);
+            }
+            possibleCommands.push_back("\"exit\"");
+
+            //print all this stuff
+            for (std::string command: possibleCommands) {
+                sout(command);
+            }
+    }
+}
+
 void Game::sayHello(std::vector<std::string> * params) {
     //switch for when in combat
     switch(status) {
@@ -98,44 +140,9 @@ void Game::show(std::vector<std::string> *params) {
     }
 }
 
-void Game::showPossibleCommands(){
-    switch(status) {
-        case 1:
-            inCombat();
-            break;
-        default:
-            std::vector<std::string> possibleCommands;
-            //show special commands
-            possibleCommands.push_back("\"show commands\"");
-            //show all possible rooms
-            std::vector<Connection *> *connections = current_room->getConnections();
-            for (Connection *connection : *connections) {
-                std::string commando = "\"go " + connection->instruction(current_room) + "\"";
-                possibleCommands.push_back(commando);
-            }
-            //show all possible monsters
-            std::vector<Monster *> *monsters = current_room->getMonsters();
-            for (Monster *monster : *monsters) {
-                std::string commando = "\"attack " + monster->getName() + "\"";
-                possibleCommands.push_back(commando);
-            }
-            possibleCommands.push_back("\"exit\"");
 
-            //print all this stuff
-            for (std::string command: possibleCommands) {
-                sout(command);
-            }
-    }
-}
 
-void Game::sout(std::string message) {
-    std::cout << message << std::endl;
-}
-
-void Game::exit(std::vector<std::string> *params) {
-    *quit = 1;
-}
-
-void Game::inCombat() {
-    sout("I'm sorry, i can't let you do that while you're in combat.");
+void Game::attack(std::vector<std::string> *params) {
+    status = 1;
+    sout("you are now in combat");
 }
