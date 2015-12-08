@@ -31,7 +31,12 @@ private:
 
     void sout(std::string message);
     void showPossibleCommands();
+
+    //all stuff for the combat
     void inCombat();
+    void returnDamage();
+    Monster *combatMoster; //the last monster you were in combat with
+    void damageGiven(int givenDamage);
 public:
     Game(int * exit);
 
@@ -42,7 +47,6 @@ public:
     void exit(std::vector<std::string> * params);
     //all combat related commands
     void attack(std::vector<std::string> * params); //go in combat
-
 
 
 

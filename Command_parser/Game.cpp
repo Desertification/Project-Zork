@@ -74,6 +74,24 @@ void Game::showPossibleCommands() {
     }
 }
 
+void Game::returnDamage() {
+
+}
+
+void Game::damageGiven(int givenDamage) {
+    if (givenDamage == -1) {
+        sout(combatMoster->getName() + " dodged your attack");
+    } else {
+        sout("you dealt " + std::to_string(givenDamage) + " to " + combatMoster->getName());
+        if (combatMoster->getHealth() <= 0) {
+            sout("you have triumphed over your enemy");
+            status = 0;
+        }else{
+            sout(combatMoster->getName() + " now has " + std::to_string(combatMoster->getHealth()) + " left");
+        }
+    }
+}
+
 void Game::sayHello(std::vector<std::string> *params) {
     //switch for when in combat
     switch (status) {
@@ -107,7 +125,6 @@ void Game::go(std::vector<std::string> *params) {
                 if (current_room->go((*params)[0]) == NULL) {
                     sout("No such room aviable");
                 } else {
-                    sout("test");
                     //if the room is recognized, go to the new room, and explore it
                     current_room = current_room->go((*params)[0]);
                     std::cout << current_room->explore();
@@ -144,14 +161,23 @@ void Game::show(std::vector<std::string> *params) {
 void Game::attack(std::vector<std::string> *params) {
     switch (status) {
         case 1:
-            inCombat();
+            if ((*params)[0]=="fast") {
+                int givenDamage = combatMoster->takeDamage(hero->getDamage(), hero->getQuickness());
+                damageGiven(givenDamage);
+            }
+            else if ((*params)[0]=="strong"){
+                int givenDamage = combatMoster->takeDamage(hero->getDamage() * 2, hero->getQuickness() / 2);
+                damageGiven(givenDamage);
+            }
+            else{
+                sout("You can't attack that way");
+            }
             break;
         default:
             //get all the monsters in the current room
             std::vector<Monster *> *monsters = current_room->getMonsters();
             //check if the monster is in the room
             unsigned int contains = 0;
-            Monster *combatMoster;
             for (Monster *monster : *monsters) {
                 if (monster->getName() == (*params)[0]) {
                     combatMoster = monster;
