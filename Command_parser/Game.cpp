@@ -84,6 +84,8 @@ void Game::damageGiven(int givenDamage) {
     } else {
         sout("you dealt " + std::to_string(givenDamage) + " to " + combatMoster->getName());
         if (combatMoster->getHealth() <= 0) {
+            //set the monster as killed
+            combatMoster->killed();
             sout("you have triumphed over your enemy");
             status = 0;
         }else{
@@ -181,7 +183,13 @@ void Game::attack(std::vector<std::string> *params) {
             for (Monster *monster : *monsters) {
                 if (monster->getName() == (*params)[0]) {
                     combatMoster = monster;
-                    contains = 1;
+                    //check if the monster isn't dead
+                    if (combatMoster->getAggressiveness()!= -1){
+                        contains = 1;
+                    } else {
+                        contains = 2;
+                    }
+
                 }
             }
 
@@ -189,19 +197,21 @@ void Game::attack(std::vector<std::string> *params) {
                 status = 1;
                 sout("you are now in combat");
 
-                sout(std::string("fast attack (damage :") +
+                sout(std::string("attack fast (damage :") +
                      std::to_string(hero->getDamage() - combatMoster->getArmor()) + " chance to hit : " +
                      std::to_string(
                              100 - combatMoster->getChanceToDodge(hero->getQuickness())) + " %)");
                 sout("INSERT: \"attack fast\" for a normal attack");
-                sout(std::string("strong attack (damage :") +
+                sout(std::string("attack strong (damage :") +
                      std::to_string(hero->getDamage() * 2 - combatMoster->getArmor()) + " chance to hit : " +
                      std::to_string(
                              100 - combatMoster->getChanceToDodge(hero->getQuickness() / 2)) + " %)");
                 sout("INSERT: \"attack strong\" for a strong attack");
                 sout("the enemy has " + std::to_string(combatMoster->getHealth()) + " hp");
                 sout("You have " + std::to_string(hero->getHealth()) + " hp");
-            } else {
+            } else if (contains == 2){
+                sout("that monster is already dead");
+            }else {
                 sout("no such monster aviable");
             }
     }

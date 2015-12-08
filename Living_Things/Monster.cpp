@@ -14,6 +14,10 @@ int Monster::getAggressiveness() {
     return aggressiveness;
 }
 
+void Monster::killed() {
+    aggressiveness = -1;
+}
+
 unsigned int Monster::getId() {
     return id;
 }
