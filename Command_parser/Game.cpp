@@ -3,7 +3,7 @@
 //
 #include "Game.h"
 
-Game::Game() {
+Game::Game(int * exit) {
     //add the rooms and their connections
     kitchen = new Room("some dark omnious kitchen\nyou feel a chill going down your spine\n");
     hallway = new Room("some spooky hallway\nscreams echo in the distance\n");
@@ -27,6 +27,8 @@ Game::Game() {
     current_room = kitchen;
     //CommandInterpreter interpreter(current_room, &exit, hero);
     std::cout << current_room->explore();
+
+    this->quit=exit;
 }
 
 void Game::sayHello(std::vector<std::string> * params) {
@@ -96,4 +98,8 @@ void Game::showPossibleCommands(){
 
 void Game::sout(std::string message) {
     std::cout << message << std::endl;
+}
+
+void Game::exit(std::vector<std::string> *params) {
+    *quit = 1;
 }
