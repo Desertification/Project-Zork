@@ -3,12 +3,12 @@
 //
 #include "Game.h"
 
-Game::Game(int * exit) {
+Game::Game(int *exit) {
     //add the rooms and their connections
     kitchen = new Room("some dark omnious kitchen\nyou feel a chill going down your spine\n");
     hallway = new Room("some spooky hallway\nscreams echo in the distance\n");
     from_kitchen_to_cellar = new Connection(kitchen, "door to the hallway", "hallway", hallway, "door to the kitchen",
-                                      "kitchen");
+                                            "kitchen");
 
     kitchen->addConnection(from_kitchen_to_cellar);
     hallway->addConnection(from_kitchen_to_cellar);
@@ -29,7 +29,7 @@ Game::Game(int * exit) {
     //CommandInterpreter interpreter(current_room, &exit, hero);
     std::cout << current_room->explore();
 
-    this->quit=exit;
+    this->quit = exit;
 }
 
 void Game::sout(std::string message) {
@@ -44,8 +44,8 @@ void Game::inCombat() {
     sout("I'm sorry, i can't let you do that while you're in combat.");
 }
 
-void Game::showPossibleCommands(){
-    switch(status) {
+void Game::showPossibleCommands() {
+    switch (status) {
         case 1:
             inCombat();
             break;
@@ -74,19 +74,19 @@ void Game::showPossibleCommands(){
     }
 }
 
-void Game::sayHello(std::vector<std::string> * params) {
+void Game::sayHello(std::vector<std::string> *params) {
     //switch for when in combat
-    switch(status) {
+    switch (status) {
         case 1:
             inCombat();
             break;
         default:
-        std::cout << "Dude ... HELLLLLLOOOOO ......" << std::endl;
+            std::cout << "Dude ... HELLLLLLOOOOO ......" << std::endl;
     }
 }
 
-void Game::sayBye(std::vector<std::string> * params) {
-    switch(status) {
+void Game::sayBye(std::vector<std::string> *params) {
+    switch (status) {
         case 1:
             inCombat();
             break;
@@ -95,8 +95,8 @@ void Game::sayBye(std::vector<std::string> * params) {
     }
 }
 
-void Game::go(std::vector<std::string> * params) {
-    switch(status) {
+void Game::go(std::vector<std::string> *params) {
+    switch (status) {
         case 1:
             inCombat();
             break;
@@ -117,7 +117,7 @@ void Game::go(std::vector<std::string> * params) {
 }
 
 void Game::show(std::vector<std::string> *params) {
-    switch(status) {
+    switch (status) {
         case 1:
             inCombat();
             break;
@@ -141,8 +141,42 @@ void Game::show(std::vector<std::string> *params) {
 }
 
 
-
 void Game::attack(std::vector<std::string> *params) {
-    status = 1;
-    sout("you are now in combat");
+    switch (status) {
+        case 1:
+            inCombat();
+            break;
+        default:
+            //get all the monsters in the current room
+            std::vector<Monster *> *monsters = current_room->getMonsters();
+            //check if the monster is in the room
+            unsigned int contains = 0;
+            Monster *combatMoster;
+            for (Monster *monster : *monsters) {
+                if (monster->getName() == (*params)[0]) {
+                    combatMoster = monster;
+                    contains = 1;
+                }
+            }
+
+            if (contains == 1) {
+                status = 1;
+                sout("you are now in combat");
+
+                sout(std::string("fast attack (damage :") +
+                     std::to_string(hero->getDamage() - combatMoster->getArmor()) + " chance to hit : " +
+                     std::to_string(
+                             100 - combatMoster->getChanceToDodge(hero->getQuickness())) + " %)");
+                sout("INSERT: \"attack fast\" for a normal attack");
+                sout(std::string("strong attack (damage :") +
+                     std::to_string(hero->getDamage() * 2 - combatMoster->getArmor()) + " chance to hit : " +
+                     std::to_string(
+                             100 - combatMoster->getChanceToDodge(hero->getQuickness() / 2)) + " %)");
+                sout("INSERT: \"attack strong\" for a strong attack");
+                sout("the enemy has " + std::to_string(combatMoster->getHealth()) + " hp");
+                sout("You have " + std::to_string(hero->getHealth()) + " hp");
+            } else {
+                sout("no such monster aviable");
+            }
+    }
 }
