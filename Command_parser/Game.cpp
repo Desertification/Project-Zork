@@ -4,6 +4,8 @@
 #include "Game.h"
 
 Game::Game(int *exit) {
+    //create all the stuff
+
     //add the rooms and their connections
     kitchen = new Room("some dark omnious kitchen\nyou feel a chill going down your spine\n");
     hallway = new Room("some spooky hallway\nscreams echo in the distance\n");
@@ -44,6 +46,7 @@ void Game::inCombat() {
     sout("I'm sorry, i can't let you do that while you're in combat.");
 }
 
+//TODO show the possible commands for all combat options
 void Game::showPossibleCommands() {
     switch (status) {
         case 1:
@@ -74,10 +77,6 @@ void Game::showPossibleCommands() {
     }
 }
 
-void Game::returnDamage() {
-
-}
-
 void Game::damageGiven(int givenDamage) {
     if (givenDamage == -1) {
         sout(combatMoster->getName() + " dodged your attack");
@@ -89,9 +88,25 @@ void Game::damageGiven(int givenDamage) {
             sout("you have triumphed over your enemy");
             status = 0;
         }else{
-            sout(combatMoster->getName() + " now has " + std::to_string(combatMoster->getHealth()) + " left");
+            sout(combatMoster->getName() + " now has " + std::to_string(combatMoster->getHealth()) + " hp left");
         }
     }
+    //first check if you are still in combat (in case the monster is already dead)
+    if (status == 1){
+        givenDamage =  hero->takeDamage(combatMoster->getDamage(), hero->getQuickness());
+        if (givenDamage == -1) {
+            sout("you dodged an attack from " + combatMoster->getName());
+        } else {
+            sout(combatMoster->getName()+ " dealt " + std::to_string(givenDamage) + " to you");
+            if (hero->getHealth() <= 0) {
+                *quit = 1;
+                sout("GAME OVER YOU DAMN NOOB");
+            } else {
+                sout("You now have " + std::to_string(hero->getHealth()) + " hp left");
+            }
+        }
+    }
+
 }
 
 void Game::sayHello(std::vector<std::string> *params) {

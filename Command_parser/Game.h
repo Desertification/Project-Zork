@@ -34,7 +34,6 @@ private:
 
     //all stuff for the combat
     void inCombat();
-    void returnDamage();
     Monster *combatMoster; //the last monster you were in combat with
     void damageGiven(int givenDamage);
 public:
