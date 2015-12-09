@@ -13,6 +13,27 @@ Game::Game(int *exit) {
     rooms.push_back(new Room("you chose to keep walking in the dark forest in the rain.\nYou have tripped over a fallen branch, hit your head and died.\n"));
     //2 the house
     rooms.push_back(new Room("The front door seems to be locked\nMaybe there is a back door open.\n"));
+    //3 the door outside
+    rooms.push_back(new Room("You see the door that leads towards the kitchen\n"));
+    //4 the kitchen
+    rooms.push_back(new Room("Finally shelter. And maybe, with a little luck you'll find some food in the cabins.\n"
+                                     "While searching the cabins, you suddenly hear a deep voice coming from the dark saying : \n"
+                                     "\"Who is it there, trying to steal from me?\"\n\n"
+                                     "You answer the deep voice : \n"
+                                     "\"I'm sorry, I didn't know someone was home. I...\"\n"
+                                     "The voice interrupts you with his deep voice and in an angry tone :\n"
+                                     "\"You shall mourn the day you walked inside! Now you're mine for eternity.\"\n"
+                                     "The voice now was laughing, just laughing with you, and you never felt so scared. You wanted to get out of there, and ran towards the door.\n"
+                                     "As you approached the door, the door slams, and locks. It looks like you're trapped inside."
+
+    ));
+    //5 living room
+    rooms.push_back(new Room("You appear to be in the living room. \n"
+                                     "All the furniture is covered in white sheets. There is a door towards what you assume is the hallway\n"));
+    //6 hallway
+    rooms.push_back(new Room("The front door is still locked and there doesn't appear to be a key lying around.\n"
+                                     "Perhaps there is something on the first floor. I could use the stairs"));
+
 
 
     //0 TODO implement death
@@ -21,12 +42,42 @@ Game::Game(int *exit) {
     //1
     connections.push_back(new Connection(rooms[2], "The path towards the forest you came from", "forest", rooms[0], "The path towards the house",
                                          "house"));
+    //2
+    connections.push_back(new Connection(rooms[2], "There seems to be a little pathway around the house", "search", rooms[3], "The little pathway towards the front door",
+                                         "back"));
+    //3
+    connections.push_back(new Connection(rooms[3], "Enter the kitchen", "kitchen", rooms[4], "unaviable",
+                                         "back"));
+    //4
+    connections.push_back(new Connection(rooms[4], "There is a door in the corner", "door", rooms[5], "Go back to the kitchen",
+                                         "kitchen"));
+    //5
+    connections.push_back(new Connection(rooms[5], "Go to the hallway", "hallway", rooms[6], "go back to the living room",
+                                         "back"));
+    //6
+    connections.push_back(new Connection(rooms[6], "Go up the stairs", "upstairs", rooms[7], "go back downstairs",
+                                         "downstairs"));
+
 
     //the street
     rooms[0]->addConnection(connections[0]);
     rooms[0]->addConnection(connections[1]);
     //the house
     rooms[2]->addConnection(connections[1]);
+    rooms[2]->addConnection(connections[2]);
+    //the search
+    rooms[3]->addConnection(connections[2]);
+    rooms[3]->addConnection(connections[3]);
+    // the kitchen
+    rooms[4]->addConnection(connections[4]);
+    // the living room
+    rooms[5]->addConnection(connections[4]);
+    rooms[5]->addConnection(connections[5]);
+    // the hallway
+    rooms[6]->addConnection(connections[5]);
+    rooms[6]->addConnection(connections[6]);
+
+
 
     //add all the monsters
     spider = new Monster("spider", 1, 3, 20, 10, 70, 0, 2);
