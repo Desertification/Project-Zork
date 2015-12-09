@@ -24,16 +24,29 @@ private:
     Room* current_room;
     Hero* hero;
 
+    int * quit;
+
+    int status = 0; //status = 0 when in normal mode, 1 when in combat mode
+
 
     void sout(std::string message);
     void showPossibleCommands();
+
+    //all stuff for the combat
+    void inCombat();
+    Monster *combatMoster; //the last monster you were in combat with
+    void damageGiven(int givenDamage);
 public:
-    Game();
+    Game(int * exit);
 
     void sayHello(std::vector<std::string> * params);
     void sayBye(std::vector<std::string> * params);
     void go(std::vector<std::string> * params);
     void show(std::vector<std::string> * params);
+    void exit(std::vector<std::string> * params);
+    //all combat related commands
+    void attack(std::vector<std::string> * params); //go in combat
+
 
 
 };

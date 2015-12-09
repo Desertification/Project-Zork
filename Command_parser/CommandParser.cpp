@@ -37,7 +37,6 @@ Command * CommandParser::listen(Game * game) {
     }
 
     if (i < commands.size()) {
-        std::cout << "Command found, You typed " << line << std::endl;
         params.erase(params.begin());   // Remove actual command
 
 
