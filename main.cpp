@@ -2,43 +2,120 @@
 #include "StartClass.h"
 #include <ncurses.h>
 
+const char *s;
 using namespace std;
 
 
-int main() {
-    //let the game begin
-    //startClass startClass;
+int main()
+{
+    int maxx, maxy, ybeginafbeelding, xbeginafbeelding, ybegincommando, xbegincommando,ygrooteafbeelding,xgrooteafbeelding,ygrootecommando,xgrootecommando,ybeginwaarde,xbeginwaarde,ygrootewaarde,xgrootewaarde,xbeginans,ybeginans,xgrooteans,ygrooteans;
 
-
-    //variables to determen the size of each window
-    int maxx,maxy,y_size_picture,x_size_picture,x_begin_command,y_size_command,x_size_command,y_begin_health,x_size_health,y_size_health;
-
-    //terminal screens and windows
-    WINDOW *parentwindow, *picturewindow, *commandwindow, *healthwindow;
     initscr();
+    WINDOW  *parentwin, *commandowin,*waardewin,*answerwin;
 
-    //asking the full size of the terminal window
+    //lengte en breedte van het scherm opvragen en afdrukken
     getmaxyx(stdscr,maxx,maxy);
+    parentwin=newwin(maxx,maxy,0,0);
+    printw("maxy = %d \n",maxy);
+    printw("maxx = %d \n",maxx);
 
-    //creating windows
-    parentwindow=newwin(maxx,maxy,0,0);
+    //venstertje voor antwoord
+    ybeginans=0;
+    xbeginans=0;
+    xgrooteans=(maxx-10-1);
+    ygrooteans=(maxy-20-1);
+    answerwin=derwin(parentwin,xgrooteans,ygrooteans,xbeginans,ybeginans);
+    box(answerwin,0,0);
+    mvwprintw(answerwin,0,0,"1");
+    mvwprintw(answerwin,0,ygrooteans-1,"1");
+    mvwprintw(answerwin,xgrooteans-1,ygrooteans-1,"1");
+    mvwprintw(answerwin,xgrooteans-1,0,"1");
 
-    y_size_picture=(maxy/5)*4;
-    x_size_picture=(maxy/5)*4;
-    picturewindow=derwin(parentwindow,x_size_picture,y_size_picture,0,0);
-    box(picturewindow,0,0);
 
-    x_begin_command=((maxx/5)*4)+1;
-    y_size_command=(maxy/5)*4;
-    x_size_command=maxx-x_size_picture-1;
-    commandwindow=derwin(parentwindow,x_size_command,y_size_command,x_begin_command,0);
-    box(commandwindow ,0,0);
+    //venstertje voor keuze commando's
+    ybegincommando = 0;
+    xbegincommando = (maxx-10);
+    ygrootecommando = (maxy-20-1);
+    xgrootecommando = 10;
+    commandowin=derwin(parentwin,xgrootecommando,ygrootecommando,xbegincommando,ybegincommando);
+    box(commandowin,0,0);
+    mvwprintw(commandowin,0,0,"2");
+    mvwprintw(commandowin,0,ygrootecommando-1,"2");
+    mvwprintw(commandowin,xgrootecommando-1,ygrootecommando-1,"2");
+    mvwprintw(commandowin,xgrootecommando-1,0,"2");
 
-    y_begin_health=((maxy/5)*4)+1;
-    y_size_health=maxy-y_size_picture-1;
-    x_size_health=maxx;
-    healthwindow=derwin(parentwindow,x_size_health,y_size_health,0,y_begin_health);
-    box(healthwindow,0,0);
 
-    return 0;
+    //venstertje voor waarden player
+    ybeginwaarde = (maxy-20);
+    xbeginwaarde = 0;
+    ygrootewaarde = 20;
+    xgrootewaarde = maxx;
+    printw("ybeginwaarde = %d \n",ybeginwaarde);
+    printw("xbeginwaarde = %d \n",xbeginwaarde);
+    printw("ygrootewaarde = %d \n",ygrootewaarde);
+    printw("xgrootewaarde = %d \n",xgrootewaarde);
+    waardewin=derwin(parentwin,xgrootewaarde,ygrootewaarde,xbeginwaarde,ybeginwaarde);
+    box(waardewin,0,0);
+    mvwprintw(waardewin,0,0,"3");
+    mvwprintw(waardewin,0,ygrootewaarde-1,"3");
+    mvwprintw(waardewin,xgrootewaarde-1,ygrootewaarde-1,"3");
+    mvwprintw(waardewin,xgrootewaarde-1,0,"3");
+
+    refresh();
+    wrefresh(answerwin);
+    wrefresh(waardewin);
+    //getch();
+
+    //menu maken
+    char list [5][7]={"one","two","three","four","five"};
+    char item [7];
+    int ch, i=0, width=7;
+
+    // now print all the menu items and highlight the first one
+    for( i=0; i<5; i++ ) {
+        if( i == 0 )
+            wattron( commandowin, A_STANDOUT ); // highlights the first item.
+        else
+            wattroff( commandowin, A_STANDOUT );
+        sprintf(item, "%-7s",  list[i]);
+        mvwprintw( commandowin, i+1, 2, "%s", item );
+    }
+    wrefresh(commandowin);// update the terminal screen
+
+    i = 0;
+    noecho(); // disable echoing of characters on the screen
+    keypad( commandowin, TRUE ); // enable keyboard input for the window.
+    curs_set( 0 ); // hide the default screen cursor.
+
+    // get the input
+    while(( ch = wgetch(commandowin)) != 'q'){
+
+        // right pad with spaces to make the items appear with even width.
+        sprintf(item, "%-7s",  list[i]);
+        mvwprintw( commandowin, i+1, 2, "%s", item );
+        // use a variable to increment or decrement the value based on the input.
+        switch( ch ) {
+            case KEY_UP:
+                i--;
+                i = ( i<0 ) ? 4 : i;
+                break;
+            case KEY_DOWN:
+                i++;
+                i = ( i>4 ) ? 0 : i;
+                break;
+        }
+        // now highlight the next item in the list.
+        wattron( commandowin, A_STANDOUT );
+
+        sprintf(item, "%-7s",  list[i]);
+        mvwprintw( commandowin, i+1, 2, "%s", item);
+        wattroff( commandowin, A_STANDOUT );
+    }
+
+
+
+    endwin();
+
+
+
 }
