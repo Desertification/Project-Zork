@@ -7,13 +7,26 @@ Game::Game(int *exit) {
     //create all the stuff
     //add the rooms and their connections
 
-    rooms.push_back(new Room("some dark omnious kitchen\nyou feel a chill going down your spine\n"));
-    rooms.push_back(new Room("some spooky hallway\nscreams echo in the distance\n"));
-    connections.push_back(new Connection(rooms[0], "door to the hallway", "hallway", rooms[1], "door to the kitchen",
-                                         "kitchen"));
+    //0 outside on the street
+    rooms.push_back(new Room("You see a house in the distance..\nMaybe you'll find shelter in there from the dark and the rain\n"));
+    //1 walk on TODO implement death
+    rooms.push_back(new Room("you chose to keep walking in the dark forest in the rain.\nYou have tripped over a fallen branch, hit your head and died.\n"));
+    //2 the house
+    rooms.push_back(new Room("The front door seems to be locked\nMaybe there is a back door open.\n"));
 
+
+    //0 TODO implement death
+    connections.push_back(new Connection(rooms[1], "You died", "death", rooms[0], "The forest path home",
+                                         "home"));
+    //1
+    connections.push_back(new Connection(rooms[2], "The path towards the forest you came from", "forest", rooms[0], "The path towards the house",
+                                         "house"));
+
+    //the street
     rooms[0]->addConnection(connections[0]);
-    rooms[1]->addConnection(connections[0]);
+    rooms[0]->addConnection(connections[1]);
+    //the house
+    rooms[2]->addConnection(connections[1]);
 
     //add all the monsters
     spider = new Monster("spider", 1, 3, 20, 10, 70, 0, 2);
