@@ -5,21 +5,21 @@
 
 Game::Game(int *exit) {
     //create all the stuff
-
     //add the rooms and their connections
-    kitchen = new Room("some dark omnious kitchen\nyou feel a chill going down your spine\n");
-    hallway = new Room("some spooky hallway\nscreams echo in the distance\n");
-    from_kitchen_to_cellar = new Connection(kitchen, "door to the hallway", "hallway", hallway, "door to the kitchen",
-                                            "kitchen");
 
-    kitchen->addConnection(from_kitchen_to_cellar);
-    hallway->addConnection(from_kitchen_to_cellar);
+    rooms.push_back(new Room("some dark omnious kitchen\nyou feel a chill going down your spine\n"));
+    rooms.push_back(new Room("some spooky hallway\nscreams echo in the distance\n"));
+    connections.push_back(new Connection(rooms[0], "door to the hallway", "hallway", rooms[1], "door to the kitchen",
+                                         "kitchen"));
+
+    rooms[0]->addConnection(connections[0]);
+    rooms[1]->addConnection(connections[0]);
 
     //add all the monsters
     spider = new Monster("spider", 1, 3, 20, 10, 70, 0, 2);
 
     //assign monsters to a room
-    kitchen->addMonster(spider);
+    rooms[0]->addMonster(spider);
 
     //the start, maybe make tutorial here, maybe even a function to load a previous game
     std::cout << "please enter the username you want to use" << std::endl;
@@ -27,7 +27,7 @@ Game::Game(int *exit) {
     getline(std::cin, username);
     hero = new Hero(username);
     //the first room
-    current_room = kitchen;
+    current_room = rooms[0];
     //CommandInterpreter interpreter(current_room, &exit, hero);
     std::cout << current_room->explore();
 
