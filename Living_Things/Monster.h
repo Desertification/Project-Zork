@@ -20,6 +20,7 @@ private:
 public:
     Monster(std::string, unsigned int id,int aggressiveness, int health, int stamina, int quickness, int armor, int damage);
     int getAggressiveness();
+    void killed();
     unsigned int getId();
 };
 
