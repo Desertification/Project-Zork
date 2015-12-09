@@ -11,16 +11,14 @@
 class Inventory {
 private:
     std::string name;
-    std::vector<Item*> inventory;
+    std::vector<Item*> itemlist;
     int weight;
 public:
-    Inventory(std::string);
+    Inventory(std::string name);
     int getWeight();
     void removeItem(std::string);
-    void removeItem(int);
     void addItem(Item*);
     Item* getItem(std::string);
-    Item* getItem(int);
 };
 
 

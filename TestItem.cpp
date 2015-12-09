@@ -3,3 +3,10 @@
 //
 
 #include "TestItem.h"
+
+TestItem::TestItem(std::string name, std::string description, int weight) : Item(name,description,weight){
+
+}
+void TestItem::use() {
+    
+}
