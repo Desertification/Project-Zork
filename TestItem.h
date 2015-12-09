@@ -10,7 +10,7 @@
 class TestItem : public Item{
 private:
 public:
-    TestItem(std::string,std::string,int);
+    TestItem(std::string name,std::string description,int weight);
 
     void use();
 };

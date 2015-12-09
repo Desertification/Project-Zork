@@ -68,6 +68,9 @@ void Game::showPossibleCommands() {
                 std::string commando = "\"attack " + monster->getName() + "\"";
                 possibleCommands.push_back(commando);
             }
+            //show all possible searches
+            //TODO get all the available inventories and push in to list
+
             possibleCommands.push_back("\"exit\"");
 
             //print all this stuff
@@ -229,5 +232,16 @@ void Game::attack(std::vector<std::string> *params) {
             }else {
                 sout("no such monster aviable");
             }
+    }
+}
+
+void Game::search(std::vector<std::string> *params) { //TODO link to inventories
+    switch (status) {
+        case 1: // in combat
+            break;
+        case 2: // in an inventory
+            break;
+        default: // normal
+            break;
     }
 }

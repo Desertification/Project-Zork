@@ -14,7 +14,7 @@ private:
     std::string description;
     int weight;
 public:
-    Item(std::string, std::string, int);
+    Item(std::string name, std::string description, int weight);
     std::string getName();
     std::string getDescription();
     int getWeight();

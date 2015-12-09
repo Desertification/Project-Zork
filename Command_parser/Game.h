@@ -46,6 +46,8 @@ public:
     void exit(std::vector<std::string> * params);
     //all combat related commands
     void attack(std::vector<std::string> * params); //go in combat
+    //all inventory related commands
+    void search(std::vector<std::string> * params); // search some inventory
 
 
 

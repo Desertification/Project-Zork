@@ -6,7 +6,6 @@
 
 Inventory::Inventory(std::string name) {
     this -> name = name;
-    itemlist.resize(10);
 }
 
 int Inventory::getWeight() {
@@ -14,9 +13,10 @@ int Inventory::getWeight() {
 }
 
 void Inventory::removeItem(std::string name) {
-    for (auto &item : itemlist) {
-        if (item->getName() == name) {
-            delete item;
+    for (int i = 0; i < itemlist.size(); ++i) {
+        if (itemlist[i]->getName() == name){
+            delete(itemlist[i]); // removes item from heap
+            itemlist.erase(itemlist.begin() + i); // removes pointer to item in the vector
             break;
         }
     }
@@ -27,12 +27,20 @@ void Inventory::addItem(Item* item) {
 }
 
 Item* Inventory::getItem(std::string name) {
-    Item *test = nullptr;
-    for (auto &item : itemlist) {
+    Item* test = nullptr; // use getItems first to check if the item exits or handle the nullptr
+    for (auto item : itemlist) {
         if (item->getName() == name) {
             test = item;
             break;
         }
     }
     return test;
+}
+
+std::vector<Item *> *Inventory::getItems() {
+    return &itemlist;
+}
+
+std::string Inventory::getName() {
+    return name;
 }
