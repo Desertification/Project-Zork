@@ -26,7 +26,7 @@ private:
 
     int * quit;
 
-    int status = 0; //status = 0 when in normal mode, 1 when in combat mode
+    int status = 0; //status = 0 when in normal mode, 1 when in combat mode, 2 when in inventory
 
 
     void sout(std::string message);
@@ -35,6 +35,7 @@ private:
     //all stuff for the combat
     void inCombat();
     Monster *combatMoster; //the last monster you were in combat with
+    Inventory* globalInventory; // to store the selected inventory
     void damageGiven(int givenDamage);
 public:
     Game(int * exit);

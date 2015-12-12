@@ -2,6 +2,7 @@
 // Created by alex on 11/20/15.
 //
 #include "Game.h"
+#include "../Lib.h"
 
 Game::Game(int *exit) {
     //create all the stuff in the most non oop way
@@ -33,7 +34,6 @@ Game::Game(int *exit) {
     current_room = kitchen;
     //CommandInterpreter interpreter(current_room, &exit, hero);
     std::cout << current_room->explore();
-
     this->quit = exit;
 }
 
@@ -261,7 +261,34 @@ void Game::attack(std::vector<std::string> *params) {
     }
 }
 
-void Game::search(std::vector<std::string> *params) { //TODO link to inventories
+void Game::search(std::vector<std::string> *params) { //TODO grab commands / use commands
     //case or structure example: http://stackoverflow.com/questions/4704986/switch-statement-using-or
-
+    // todo fix this ugly code
+    println("WIP");
+    bool found_match = 0;
+    std::vector<Inventory*>* inventories = current_room->getInventories();
+    for (auto value : *inventories){
+        if (value->getName() == (*params)[0]){
+            found_match = 1;
+            globalInventory = value;
+            status = 2;
+            break;
+        }
+    }
+    if (not found_match) {
+        std::vector<Monster*>* monsters = current_room->getMonsters();
+        for (auto value : *monsters){
+            if (value->getAggressiveness() != 1 and value->getInventory()->getName() == (*params)[0]){
+                found_match = 1;
+                globalInventory = value->getInventory();
+                status = 2;
+                break;
+            }
+        }
+    }
+    if (not found_match and hero->getInventory()->getName() == (*params)[0]) {
+        globalInventory = hero->getInventory();
+        status = 2;
+    }
+    status = 0; // revert status as code is WIP
 }

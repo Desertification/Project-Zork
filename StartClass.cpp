@@ -20,6 +20,7 @@ startClass::startClass() {
     parser.registerCommand("show", &Game::show);
     parser.registerCommand("exit", &Game::exit);
     parser.registerCommand("attack", &Game::attack);
+    parser.registerCommand("search", &Game::search);
 
 
 
