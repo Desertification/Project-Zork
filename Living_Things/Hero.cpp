@@ -7,11 +7,14 @@
 
 Hero::Hero(std::string name, int health, unsigned int level) : Entity(name, health, 100, 20, 0, 5) {
     this->level = level;
+    inventory->setName("backpack");
 }
 
 //a shorter constructor with standard create values
 Hero::Hero(std::string name) : Entity(name, 100, 100, 50, 0, 5) {
+    // todo: way to not repeat these statements
     this->level = 0;
+    inventory = new Inventory("backpack");
 }
 
 unsigned int Hero::getLevel() {

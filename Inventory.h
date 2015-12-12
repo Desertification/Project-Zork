@@ -17,6 +17,7 @@ public:
     Inventory(std::string name);
     int getWeight();
     std::string getName();
+    void setName(std::string name);
     void removeItem(std::string item_name);
     void addItem(Item* Item_pointer);
     Item* getItem(std::string item_name);

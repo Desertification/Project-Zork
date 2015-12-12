@@ -6,7 +6,6 @@
 #define GAMETEST_ITEM_H
 
 #include <string>
-#include "Living_Things/Hero.h"
 
 class Item {
 private:

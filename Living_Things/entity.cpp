@@ -11,6 +11,7 @@ Entity::Entity(std::string name, int health,int stamina, int quickness, int armo
     this->quickness = quickness;
     this->armor = armor;
     this->damage = damage;
+    inventory = new Inventory("inventory");
 }
 
 

@@ -7,14 +7,12 @@
 
 #include "entity.h"
 
-
 class Hero: public Entity {
 private:
     unsigned int level;
 public:
     Hero(std::string, int health, unsigned int level);
-    //a shorter constructor with standard create values
-    Hero(std::string);
+    Hero(std::string); //a shorter constructor with standard create values
     unsigned int getLevel();
     void Levelup();
 };

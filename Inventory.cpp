@@ -44,3 +44,7 @@ std::vector<Item *> *Inventory::getItems() {
 std::string Inventory::getName() {
     return name;
 }
+
+void Inventory::setName(std::string name) {
+    this->name = name;
+}
