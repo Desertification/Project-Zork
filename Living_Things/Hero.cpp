@@ -13,6 +13,7 @@ Hero::Hero(std::string name, int health, unsigned int level) : Entity(name, heal
 //a shorter constructor with standard create values
 Hero::Hero(std::string name) : Entity(name, 100, 100, 50, 0, 5) {
     // todo: way to not repeat these statements
+    // solution(constructor delegation) might not be supported: http://stackoverflow.com/questions/7330296/constructor-overloading-in-c
     this->level = 0;
     inventory = new Inventory("backpack");
 }
