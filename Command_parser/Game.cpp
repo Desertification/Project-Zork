@@ -4,7 +4,7 @@
 #include "Game.h"
 
 Game::Game(int *exit) {
-    //create all the stuff
+    //create all the stuff in the most non oop way
 
     //add the rooms and their connections
     kitchen = new Room("some dark omnious kitchen\nyou feel a chill going down your spine\n");
@@ -20,6 +20,9 @@ Game::Game(int *exit) {
 
     //assign monsters to a room
     kitchen->addMonster(spider);
+
+    //put an inventory in the kitchen
+    kitchen->addInventory(new Inventory("cabinet"));
 
     //the start, maybe make tutorial here, maybe even a function to load a previous game
     std::cout << "please enter the username you want to use" << std::endl;
@@ -70,6 +73,27 @@ void Game::showPossibleCommands() {
             }
             //show all possible searches
             //TODO get all the available inventories and push in to list
+            //player inventory
+            Inventory* playerInventory = hero->getInventory();
+            std::string command = "\"search " + playerInventory->getName() + "\"";
+            possibleCommands.push_back(command);
+            //room inventories
+            std::vector<Inventory*>* roomInventories = current_room->getInventories();
+            for (auto value : *roomInventories){
+                std::string command = "\"search " + value->getName();
+                possibleCommands.push_back(command);
+            }
+            //monster inventories (when dead)
+            //can be inserted in monster attack for loop
+            for (auto value : *monsters) {
+                if (value->getAggressiveness() == -1){ // test if monster is dead
+                    Inventory* monsterInventory = value->getInventory();
+                    std::string commando = "\"search " + monsterInventory->getName() + "\"";
+                    possibleCommands.push_back(commando);
+                }
+
+            }
+
 
             possibleCommands.push_back("\"exit\"");
 
@@ -236,12 +260,6 @@ void Game::attack(std::vector<std::string> *params) {
 }
 
 void Game::search(std::vector<std::string> *params) { //TODO link to inventories
-    switch (status) {
-        case 1: // in combat
-            break;
-        case 2: // in an inventory
-            break;
-        default: // normal
-            break;
-    }
+    //case or structure example: http://stackoverflow.com/questions/4704986/switch-statement-using-or
+
 }

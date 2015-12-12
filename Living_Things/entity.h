@@ -18,6 +18,8 @@ class Entity {
     int armor;
     int damage;
     int getRandomNumber(int);
+protected:
+    Inventory* inventory;
 public:
     Entity(std::string, int health, int stamina, int quickness, int armor, int damage);
     std::string getName();
@@ -28,6 +30,6 @@ public:
     int getArmor();
     int getDamage();
     int takeDamage(int attack, int attackQuickness);
-    Inventory* inventory;
+    Inventory* getInventory();
 };
 #endif //GAMETEST_ENTITY_H

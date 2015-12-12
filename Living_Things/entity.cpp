@@ -65,3 +65,7 @@ int Entity::getRandomNumber(int max) {
     delete randomDevice;
     return randomNumber;
 }
+
+Inventory *Entity::getInventory() {
+    return inventory;
+}

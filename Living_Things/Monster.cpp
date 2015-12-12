@@ -8,7 +8,7 @@ Monster::Monster(std::string name, unsigned int id, int aggressiveness, int heal
     : Entity(name, health, stamina, quickness, armor, damage){
     this->aggressiveness = aggressiveness;
     this->id = id;
-    inventory->setName("cropse"); // assume monster is dead when you access its inventory
+    inventory->setName(name + "_cropse"); // assume monster is dead when you access its inventory
 }
 
 int Monster::getAggressiveness() {
