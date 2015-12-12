@@ -48,3 +48,31 @@ std::vector<Monster*>* Room::getMonsters() {
     return &monsters;
 }
 
+void Room::addInventory(Inventory* inventory) {
+    inventories.push_back(inventory);
+}
+
+std::vector<Inventory *> *Room::getInventories() {
+    return &inventories;
+}
+
+Inventory *Room::getInventory(std::string name) {
+    Inventory* inventory = nullptr;
+    for (auto value : inventories) {
+        if (value->getName() == name) {
+            inventory = value;
+            break;
+        }
+    }
+    return inventory;
+}
+
+void Room::removeInventory(std::string name) {
+    for (int i = 0; i < inventories.size(); ++i) {
+        if (inventories[i]->getName() == name){
+            delete(inventories[i]); // removes from heap
+            inventories.erase(inventories.begin() + i); // removes pointer in the vector
+            break;
+        }
+    }
+}
