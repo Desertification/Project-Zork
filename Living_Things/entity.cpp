@@ -55,7 +55,7 @@ int Entity::takeDamage(int attack, int attackQuickness) {
 }
 
 int Entity::getChanceToDodge(int attackQuickness) {
-    int dodge_chance = quickness - attackQuickness;
+    int dodge_chance = quickness - attackQuickness - inventory->getWeight();
     return dodge_chance;
 }
 
