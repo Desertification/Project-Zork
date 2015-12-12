@@ -68,8 +68,10 @@ void Game::showPossibleCommands() {
             //show all possible monsters
             std::vector<Monster *> *monsters = current_room->getMonsters();
             for (Monster *monster : *monsters) {
-                std::string commando = "\"attack " + monster->getName() + "\"";
-                possibleCommands.push_back(commando);
+                if (monster->getAggressiveness() != -1){
+                    std::string commando = "\"attack " + monster->getName() + "\"";
+                    possibleCommands.push_back(commando);
+                }
             }
             //show all possible searches
             //TODO get all the available inventories and push in to list
