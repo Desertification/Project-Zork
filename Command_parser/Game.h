@@ -15,9 +15,8 @@
 
 class Game {
 private:
-    Room * kitchen;
-    Room * hallway;
-    Connection * from_kitchen_to_cellar;
+    std::vector<Room *> rooms;
+    std::vector<Connection *> connections;
 
     Monster *spider;
 
