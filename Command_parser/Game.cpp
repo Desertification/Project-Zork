@@ -242,6 +242,104 @@ Game::Game(int *exit) {
     rooms.push_back(new Room("There is a big door with the text :\n"
                                      "\"Let the 7 trumper judgements begin !\"\n"));
 
+    //54 todo add dragon
+    rooms.push_back(new Room("The first trumpet is the one of Hail, fire and blood.\n"
+                                     "To beat this trumpet, you must defeat the dragon inside this room.\n"
+                                     "\n"
+                                     "The next trumpet is trough the next door\n"));
+
+    //55 todo add typhon
+    rooms.push_back(new Room("The second trumpet is the one of a vulcano.\n"
+                                     "The monster that you must defeat is Typhon (A fire-breathing titan).\n"
+                                     "\n"
+                                     "The next trumpet is trough the next door\n"));
+
+    //56 todo add new jersey devil
+    rooms.push_back(new Room("The third trumpet is the one of Meteorites.\n"
+                                     "To beat this trumpet, you must dodge it fast airstrikes.\n"
+                                     "\n"
+                                     "The next trumpet is trough the next door\n"));
+
+    //57 todo add dragon
+    rooms.push_back(new Room("The fourth trumpet is the one of Darkness that falls.\n"
+                                     "To beat this trumpet, you must defeat a ghost.\n"
+                                     "\n"
+                                     "The next trumpet is trough the next door\n"));
+
+    //58 todo add satan as enemy
+    rooms.push_back(new Room("The fifth trumpet is the one of a buttemless pit.\n"
+                                     "God gives the keys of the buttomless pit to satan.\n"
+                                     "Satan wants to open the abyss to let the demons come.\n"
+                                     "The next trumpet is trough the next door\n"));
+
+    //59 todo add Chimera, Demon and ogre
+    rooms.push_back(new Room("Four angels are leading an army of 200 horsemen to kill all the unbelievers that are still remaining\n"
+                                     "\n"
+                                     "The final gate is in front of you. It's made of gold\n"));
+
+    //60
+    rooms.push_back(new Room("As you want to open the gate, you suddenly find yourself binded by magic. \n"
+                                     "There are multiple angels, all speaking the very same things at the same time.\n"
+                                     "They all ask at the same time :\n"
+                                     "\"Did you meet the good fairy?\"\n"));
+
+    //61
+    rooms.push_back(new Room("\"Did she give you something?\"\n"));
+
+    //62
+    rooms.push_back(new Room("\"Give it to us!\"\n"));
+    //63
+    rooms.push_back(new Room("\"Give it to us!\"\n"));
+    //64
+    rooms.push_back(new Room("\"Give it to us!\"\n"));
+
+    //65
+    rooms.push_back(new Room("You get rescued by the good fairy.\n"
+                                     "Out of gratitude she gives you a glass bowl with a flame inside.\n"));
+    //66
+    rooms.push_back(new Room("Congratulations" + hero->getName() + "\n"
+                                     "You have reached the kingdom of christ and saved the world.\n"
+                                     "Jezus comes to you, and asks :\n"
+                                     "\"Can i please have the glass bowl with the burning flame.\"\n"));
+
+    //67
+    rooms.push_back(new Room("A bright light appears. \n"
+                                     "Suddenly you notice the bright light is light of your home hallway.\n"
+                                     "You look at the time and notice only one minute has passed since you entered that home. You wonder how that is possible.\n"
+                                     "YOU HAVE WON!\n"));
+
+    //68 todo implement death
+    rooms.push_back(new Room("\"You dare lie to an angel?\"\n"
+                                     "YOU DIED\n"));
+
+    //69
+    rooms.push_back(new Room("\"Are you lying?\"\n"));
+
+    //70 todo implement death
+    rooms.push_back(new Room("After giving it to them, they still kill because they know about the dead hooker in your basement.\n"
+                                     "YOU DIED\n"));
+
+    //71 todo implement death
+    rooms.push_back(new Room("Jezus says you are selfish, and the flame in the bowl suddenly encompasses the whole room. You are burnt alive.\n"
+                                     "YOU DIED\n"));
+
+    //72 todo implement death
+    rooms.push_back(new Room("\"You dare lie to an angel?\"\n"
+                                     "YOU DIED\n"));
+
+    //73
+    rooms.push_back(new Room("\"Are you lying?\"\n"));
+
+    //74
+    rooms.push_back(new Room("\"Did she give you something?\"\n"));
+
+    //75
+    rooms.push_back(new Room("\"Are you lying?\"\n"));
+
+    //76 todo implement death
+    rooms.push_back(new Room("\"You dare lie to an angel?\"\n"
+                                     "YOU DIED\n"));
+
 
     //0 TODO implement death
     connections.push_back(new Connection(rooms[1], "You died", "death", rooms[0], "The forest path home",
