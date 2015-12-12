@@ -24,7 +24,7 @@ Game::Game(int *exit) {
                                      "The voice interrupts you with his deep voice and in an angry tone :\n"
                                      "\"You shall mourn the day you walked inside! Now you're mine for eternity.\"\n"
                                      "The voice now was laughing, just laughing with you, and you never felt so scared. You wanted to get out of there, and ran towards the door.\n"
-                                     "As you approached the door, the door slams, and locks. It looks like you're trapped inside."
+                                     "As you approached the door, the door slams, and locks. It looks like you're trapped inside.\n"
 
     ));
     //5 living room
@@ -32,8 +32,215 @@ Game::Game(int *exit) {
                                      "All the furniture is covered in white sheets. There is a door towards what you assume is the hallway\n"));
     //6 hallway
     rooms.push_back(new Room("The front door is still locked and there doesn't appear to be a key lying around.\n"
-                                     "Perhaps there is something on the first floor. I could use the stairs"));
+                                     "Perhaps there is something on the first floor. I could use the stairs\n"));
+    //7 hallway
+    rooms.push_back(new Room("There are 4 doors and a food elevator.\n"
+                                     "The first 3 doors are locked\n"));
+    //8 bedroom
+    rooms.push_back(new Room("It seems to be a childrens bedroom.\n"
+                                     "There is a faint light coming out of the closet.\n"));
+    //9 closet //TODO make this with inventory
+    rooms.push_back(new Room("you find a can of peas and a knife\n"));
 
+    //10 food elevator
+    rooms.push_back(new Room("The small elevator is just big enough for you to fit.\n"
+                                     "The light is bussing. There is a button.\n"));
+
+    //11 basement
+    rooms.push_back(new Room("It stopped in a mouldy basement. It's dark and you can't see very well.\n"));
+
+    //12 basement dark
+    rooms.push_back(new Room("Your hands meet a cold copper doorknob. It appears to be locked\n"));
+
+    //13 light switch
+    rooms.push_back(new Room("You find a light switch.\n"));
+
+    //14 basement lit
+    rooms.push_back(new Room("You turn the light on and look around the room.\n"
+                                     "You see a loose brick sticking out of the wall.\n"));
+    //15 tunnel opening
+    rooms.push_back(new Room("The brick slights in and the wall opens\n"
+                                     "A dark tunnel appears\n"));
+    //16
+    rooms.push_back(new Room("Torches turn on and a beautifull library appears.\n"
+                                     "There is a big book on a table and another book hanging out of a bookcase\n"));
+    //17
+    rooms.push_back(new Room("You open the book and start reading the first page.\n"
+                                     "The book is the book of revelations.\n"
+                                     "It speaks of the and of days and a witness of the end times.\n"
+                                     "A witness that is destined to either save the world or destroy it.\n"
+                                     "In the book there is a not saying that you are are the witness and the end of days begins today.\n"
+                                     "The note also says that the fate of the world rests upon your shoulders. No pressure.\n"));
+    //18
+    rooms.push_back(new Room("There is just one book standing in the bookcase. You wonder how it keeps standing\n"
+                                     "As you try to pull it out, the bookcase starts sliding to the right, revealing another tunnel.\n"
+                                     "You wonder who took the time to implement such easy and difficult to implement contraptions instead of you know, using keys.\n"));
+    //19
+    rooms.push_back(new Room("numbering error\n"));
+    //20
+    rooms.push_back(new Room("On the side of the tunnel is a picture of you.\n"
+                                     "In one hand your a holding an angel. In the other you are holding a demon.\n"
+                                     "The fate of the world is really in your hands.\n"
+                                     "Also, the nose is painted a bit too big.\n"));
+    //21 //TODO add a flashlight object in the coffin
+    rooms.push_back(new Room("You arrive in a thomb.\n"
+                                     "There is a beautifull marble coffin in the middle.\n"
+                                     "In the marble there is some engraved text :\n"
+                                     "\"Here lise the witness\"\n"
+                                     "There is a tunnel on the other side of the coffin\n"));
+
+    //22 TODO add in a fight against dracula
+    rooms.push_back(new Room("The tunnel ends in a cold and dark room\n"
+                                     "In the corner of the room there is a hole in the ground.\n"));
+
+    //23
+    rooms.push_back(new Room("A person is standing in the middle of the room.\n"));
+
+    //24 TODO implement death
+    rooms.push_back(new Room("The person was a black eyed being. A creature of evil.\n"
+                                     "Because you came closer in a friendly manner, the creature was able to take a swing at you.\n"
+                                     "You feel his abnormal long nails slice your neck. You DIED."));
+
+    //25
+    rooms.push_back(new Room("numbering error\n"));
+
+    //26
+    rooms.push_back(new Room("As you enter the room, a angel comes to you.\n"));
+
+    //27 TODO start combat
+    rooms.push_back(new Room("Only a sinning human refuses to do what i want.\n"));
+
+    //28
+    rooms.push_back(new Room("A witness! It is so nice to meet you!\n"
+                                     "My name is orion.\n"
+                                     "What are you doing here?\n"));
+
+    //29
+    rooms.push_back(new Room("Maybe we can join join forces.\n"
+                                     "I'm looking to purify the world of all sin. What do you think?\n"));
+
+    //30
+    rooms.push_back(new Room("Ok, if that is what you think\n"
+                                     "As the angel flies away, the grounds breaks open to form a cliff. \n"
+                                     "A rope hanging on the side falls down, and now hangs down the cliff.\n"));
+
+    //31 TODO add the monster conquest
+    rooms.push_back(new Room("As you are rapelling down the rope, you come in a new room.\n"
+                                     "Here you encounter Conquest. He's the first horseman of the apocalypse.\n"
+                                     "They are here to set a divine apocalypse upon the world.\n"
+                                     "\n"
+                                     "There is a window in the room. You don't understand how there can be, because you are so deep underground, but you just go with it \n"));
+
+    //32 TODO add zombies
+    rooms.push_back(new Room("Behind the window is a room filled with zombies.\n"
+                                     "You can either face them all and fight your way trough or you can sneak to the other side.\n"));
+
+    //33 TODO add zombies
+    rooms.push_back(new Room("You sneak across the room, and just before you reach the other side, you trip over your shoe laces.\n"
+                                     "The zombies notice, and attack you. You need to defeat them to get to the door on the other side of the room.\n"));
+
+    //34 TODO add monster wendigo
+    rooms.push_back(new Room("A wendigo appears. This evil creature wants to possess you to ensure the apocalypse happens.\n"
+                                     "Behind the Wendigo is a climable wall.\n"));
+
+    //35 TODO add War
+    rooms.push_back(new Room("On top is the second horseman of the apocalypse. His name is War.\n"
+                                     "He wants for all people to start killing each other.\n"
+                                     "\nBehind the horseman is a crack in the wall.\n"));
+
+    //36 TODO add Ortheos
+    rooms.push_back(new Room("Behind the crack is a street-like place. It is filled with bones.\n"
+                                     "A dog starst running towards you. This however is no normal dog. This is Ortheos! A two headed dog.\n"
+                                     "\n Once Ortheos is dead, you will be able to walk down the street\n"));
+
+    //37 TODO add cyclops
+    rooms.push_back(new Room("As you continue down the street, the bones continue. Some bones have roman armor, some medieval. The latest of combat gear you see are nazi uniforms.\n"
+                                     "You encounter a cyclops. He's huge, but only has one eye. He attacks you with the intint to eat you.\n"
+                                     "\n"
+                                     "There is a hole in the street that you can jump into.\n"));
+
+    //38 TODO add Famine
+    rooms.push_back(new Room("This room is filled with rotten fruit. The third horseman of the apocalypse appears in front of you.\n"
+                                     "\n"
+                                     "Behind the horseman, between the mountains of rotten food, there is a tiny door.\n"));
+
+    //39
+    rooms.push_back(new Room("As you have clammed yourself trought the little door, you see the grim reaper. He speaks to you :\n"
+                                     "\"Congratulations on getting this far. As a present, i give you the chance to save a life.\n"
+                                     "Behind me are two cages, each with a living being, you can save one of them.\"\n"
+                                     "\n"
+                                     "You see two cages, one with a baby, and one with a puppy.\n"));
+
+    //40
+    rooms.push_back(new Room("As you go and open the cage with a baby in it, you hear the puppy make a high pitched sound, and then just fall dead.\n"
+                                     "The baby smiles as you pick it up, and a hole in the wall appears.\n"));
+
+    //41 TODO add dog
+    rooms.push_back(new Room("As you go and open the cage with a pupy in it, you hear the baby cry, and then just fall dead.\n"
+                                     "As you look back at the puppy, there is no puppy anymore, there is a big evil dog that attacks you.\n"
+                                     "\n A hole in the wall appears."));
+
+    //42 TODO add hydra
+    rooms.push_back(new Room("The next room smells weird. There is a rare skinn lying around and a weird staircase going up.\n"));
+
+    //43 TODO add death
+    rooms.push_back(new Room("As you climb up the staircase, you notice there is a room before the staircase continues.\n"
+                                     "The last of the 4 horsemen of the apocalypse, Death itself stands before you. \n"
+                                     "He wants to take your life and the life of evryone that doesn't believe in God.\n"));
+
+    //44 todo add ghosts
+    rooms.push_back(new Room("The stairs end, and a door appears. As you open the door, an overwhelming amound of screaming is heard.\n"
+                                     "You see a giant field filled with 140 000 ghosts that the horsemen killed, but weren't allowed to continue to judgment.\n"
+                                     "One ghost sees you, and approaches.\n"
+                                     "\n"
+                                     "When you killed him, you see another door seemingly just standing in the field."));
+
+    //45
+    rooms.push_back(new Room("As you enter trough the door, you reach a stone room.\n"
+                                     "In the middle there is a flower pot with only dirt in it. It stands one a stone pillar \n"
+                                     "There is a rhyme on the pillar, and a pot of water next to the pillar.\n"));
+
+    //46
+    rooms.push_back(new Room("I was angry with my friend. I told my wrath, my wrath did end.\n"
+                                     "I was angry with my foe. I told him not, my wrath did grow.\n"
+                                     "\n"
+                                     "And I watered it in fears, night and day with my TEARS.\n"
+                                     "And i sunned it with smiles, soft, deceitfull smiles.\n"
+                                     "\n"
+                                     "And it grew both day and night, untill it bore an apple bright.\n"
+                                     "And my foe behold it shine. And he knew that it was mine.\n"
+                                     "\n"
+                                     "And into my graden stole, where the neight had veiled the pole.\n"
+                                     "In the morning glad I see, My foe atstreched beneath the tree\n"));
+
+    //47
+    rooms.push_back(new Room("The plant grows and bares an apple. A staircase in the ground opens up\n"));
+
+    //48 todo add imp
+    rooms.push_back(new Room("The earth starts to rumble and the structural integrety of the staircase begins to degrade.\n"
+                                     "Seemingly appearing out of nowhere, a small creature starts pointing and laughing. It's an imp. It caused the earthquake just as a prank \n"
+                                     "There is a rhyme on the pillar, and a pot of water next to the pillar.\n"
+                                     "\n"
+                                     "At the buttom of the staircase there is a doorway."));
+
+    //49
+    rooms.push_back(new Room("When you go trough the doorway, a fairy starts talking to you :\n"
+                                     "\"Hello traveller, who are you?\"\n"));
+
+    //50
+    rooms.push_back(new Room("\" You're the witness? Its an absolute honor to meet you!\n"
+                                     "What are you doing here, if i may ask?\"\n"));
+
+    //51
+    rooms.push_back(new Room("\"Can you do me a favor?\"\n"));
+
+    //52
+    rooms.push_back(new Room("\"Can you give this to my best, best friend please? \n"
+                                     "You'll know who he is once you meet him.\"\n"));
+
+    //53
+    rooms.push_back(new Room("There is a big door with the text :\n"
+                                     "\"Let the 7 trumper judgements begin !\"\n"));
 
 
     //0 TODO implement death
@@ -57,7 +264,51 @@ Game::Game(int *exit) {
     //6
     connections.push_back(new Connection(rooms[6], "Go up the stairs", "upstairs", rooms[7], "go back downstairs",
                                          "downstairs"));
-
+    //7
+    connections.push_back(new Connection(rooms[7], "Try the doors", "doors", rooms[8], "go back to the stairs",
+                                         "stairs"));
+    //8
+    connections.push_back(new Connection(rooms[6], "Try the doors", "doors", rooms[8], "go back to the stairs",
+                                         "stairs"));
+    //9
+    connections.push_back(new Connection(rooms[7], "Try to cramp yourself in the food elevator", "elevator", rooms[10], "go back to the stairs",
+                                         "stairs"));
+    //10
+    connections.push_back(new Connection(rooms[10], "Press the button to go down", "basement", rooms[11], "Press the button again",
+                                         "button"));
+    //11
+    connections.push_back(new Connection(rooms[11], "Look for a door", "door", rooms[12], "Press the button again",
+                                         "button"));
+    //12
+    connections.push_back(new Connection(rooms[11], "Look for a light switch", "switch", rooms[13], "Press the button again",
+                                         "button"));
+    //13
+    connections.push_back(new Connection(rooms[12], "Look for a light switch", "switch", rooms[13], "Press the button again",
+                                         "button"));
+    //14
+    connections.push_back(new Connection(rooms[13], "Flick the switch", "switch", rooms[14], "Press the button again",
+                                         "button"));
+    //15 TODO maybe make a monster appear that you have to fight
+    connections.push_back(new Connection(rooms[14], "pull the brick", "pull", rooms[14], "Press the button again",
+                                         "button"));
+    //16
+    connections.push_back(new Connection(rooms[14], "push the brick", "push", rooms[15], "Press the button again",
+                                         "button"));
+    //17
+    connections.push_back(new Connection(rooms[15], "go into the tunnel", "tunnel", rooms[16], "Go back",
+                                         "back"));
+    //18
+    connections.push_back(new Connection(rooms[16], "go to the book on the table", "table", rooms[17], "Go back",
+                                         "back"));
+    //19
+    connections.push_back(new Connection(rooms[17], "go to the book in the bookcase", "bookcase", rooms[18], "Go back to the book on the table",
+                                         "table"));
+    //20
+    connections.push_back(new Connection(rooms[16], "go to the book in the bookcase", "bookcase", rooms[18], "Go back",
+                                         "back"));
+    //21
+    connections.push_back(new Connection(rooms[16], "go to the book in the bookcase", "bookcase", rooms[18], "Go back",
+                                         "back"));
 
     //the street
     rooms[0]->addConnection(connections[0]);
@@ -76,6 +327,27 @@ Game::Game(int *exit) {
     // the hallway
     rooms[6]->addConnection(connections[5]);
     rooms[6]->addConnection(connections[6]);
+    // the upstairs
+    rooms[7]->addConnection(connections[6]);
+    rooms[7]->addConnection(connections[7]);
+    rooms[7]->addConnection(connections[9]);
+    // the childrens bedroom
+    rooms[8]->addConnection(connections[7]);
+    // the food elevator
+    rooms[10]->addConnection(connections[9]);
+    rooms[10]->addConnection(connections[10]);
+    // the basement
+    rooms[11]->addConnection(connections[10]);
+    rooms[11]->addConnection(connections[11]);
+    rooms[11]->addConnection(connections[12]);
+    // the basement dark
+    rooms[12]->addConnection(connections[13]);
+    // the basement lighted
+    rooms[13]->addConnection(connections[14]);
+    rooms[14]->addConnection(connections[15]);
+    rooms[14]->addConnection(connections[16]);
+    // a dark tunnel
+
 
 
 
@@ -91,7 +363,7 @@ Game::Game(int *exit) {
     getline(std::cin, username);
     hero = new Hero(username);
     //the first room
-    current_room = rooms[0];
+    current_room = rooms[8];
     //CommandInterpreter interpreter(current_room, &exit, hero);
     std::cout << current_room->explore();
 

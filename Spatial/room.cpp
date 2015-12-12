@@ -9,9 +9,9 @@ Room::Room(std::string description) {
 }
 std::string Room::explore() {
     // dump environment, connections and instructions in the console
-    std::string result = "You are in: \n\r";
+    std::string result = "";
     result += description;
-    result += "You see: \r\n";
+    result += "Possible actions: \r\n";
     // iterate every connection the room has (also instruction)
     for (unsigned int i = 0; i < connections.size(); i++) {
         result += connections[i]->description(this) + "\r\n";
