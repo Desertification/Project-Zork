@@ -483,42 +483,47 @@ void Game::inCombat() {
 
 //TODO show the possible commands for all combat options
 void Game::showPossibleCommands() {
-    switch (status) {
-        case 1:
-            inCombat();
-            break;
-        default:
-            std::vector<std::string> possibleCommands;
-            //show special commands
-            possibleCommands.push_back("\"show commands\"");
-            //show all possible rooms
-            std::vector<Connection *> *connections = current_room->getConnections();
-            for (Connection *connection : *connections) {
-                std::string commando = "\"go " + connection->instruction(current_room) + "\"";
+
+    std::vector<std::string> possibleCommands;
+    //show special commands
+    possibleCommands.push_back("\"show commands\"");
+
+    if (status != 1){ // when not in combat
+        //show all possible rooms
+        std::vector<Connection *> *connections = current_room->getConnections();
+        for (Connection *connection : *connections) {
+            std::string commando = "\"go " + connection->instruction(current_room) + "\"";
+            possibleCommands.push_back(commando);
+        }
+        //show all possible monsters
+        std::vector<Monster *> *monsters = current_room->getMonsters();
+        for (Monster *monster : *monsters) {
+            if (monster->getAggressiveness() != -1){
+                std::string commando = "\"attack " + monster->getName() + "\"";
                 possibleCommands.push_back(commando);
             }
-            //show all possible monsters
-            std::vector<Monster *> *monsters = current_room->getMonsters();
-            for (Monster *monster : *monsters) {
-                if (monster->getAggressiveness() != -1){
-                    std::string commando = "\"attack " + monster->getName() + "\"";
-                    possibleCommands.push_back(commando);
-                }
-            }
-            //show all possible searches
-            std::vector<Inventory*> inventories = getAllReachableInventories();
-            for (auto value : inventories){
-                std::string command = "\"search " + value->getName() + "\"";
-                possibleCommands.push_back(command);
-            }
-
-            possibleCommands.push_back("\"exit\"");
-
-            //print all this stuff
-            for (std::string command: possibleCommands) {
-                sout(command);
-            }
+        }
     }
+    else if (status == 1) { // when in combat
+        //show all possible attacks
+        possibleCommands.push_back("\"attack strong\"");
+        possibleCommands.push_back("\"attack fast\"");
+        // todo get swingable items in hand
+    }
+    //show all possible searches
+    std::vector<Inventory*> inventories = getAllReachableInventories();
+    for (auto value : inventories){
+        std::string command = "\"search " + value->getName() + "\"";
+        possibleCommands.push_back(command);
+    }
+
+    possibleCommands.push_back("\"exit\"");
+
+    //print all this stuff
+    for (std::string command: possibleCommands) {
+        sout(command);
+    }
+
 }
 
 void Game::damageGiven(int givenDamage) {

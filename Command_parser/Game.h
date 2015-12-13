@@ -41,14 +41,17 @@ public:
 
     void sayHello(std::vector<std::string> * params);
     void sayBye(std::vector<std::string> * params);
+    // move between rooms
     void go(std::vector<std::string> * params);
+    // command related commands
     void show(std::vector<std::string> * params);
+    // exit game
     void exit(std::vector<std::string> * params);
     //all combat related commands
     void attack(std::vector<std::string> * params); //go in combat
     //all inventory related commands
     void search(std::vector<std::string> * params); // search some inventory
-
+    // returns vector of inventories the player can access at that time
     std::vector<Inventory*> getAllReachableInventories();
 
 };
