@@ -7,6 +7,7 @@
 Entity::Entity(std::string name, int health,int stamina, int quickness, int armor, int damage) {
     this->name = name;
     this->health = health;
+    this->max_health = health;
     this->stamina = stamina;
     this->quickness = quickness;
     this->armor = armor;
@@ -68,4 +69,23 @@ int Entity::getRandomNumber(int max) {
 
 Inventory *Entity::getInventory() {
     return inventory;
+}
+
+void Entity::heal(int heal_amount) {
+    health = health + heal_amount;
+    if (health > max_health){
+        health = max_health;
+    }
+}
+
+int Entity::getMaxHealth() {
+    return max_health;
+}
+
+float Entity::getHealthPercentage() {
+    return (float)health / (float)max_health;
+}
+
+void Entity::takeDamage(int base_damage) {
+    health = health - base_damage;
 }
