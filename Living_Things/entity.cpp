@@ -39,7 +39,7 @@ int Entity::getDamage() {
     return damage;
 }
 
-int Entity::takeDamage(int attack, int attackQuickness) {
+int Entity::takeDamage(int base_damage, int attackQuickness) {
     //TODO make the damage sort of a range, and randomly choose from between these ranges
     int dodge_chance = getChanceToDodge(attackQuickness);
     int randomNumber = getRandomNumber(100);
@@ -48,7 +48,7 @@ int Entity::takeDamage(int attack, int attackQuickness) {
         return -1;
     }
     else{
-        int hurt = attack - armor;
+        int hurt = base_damage - armor;
         health = health - hurt;
         return hurt;
     }

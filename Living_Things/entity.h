@@ -29,7 +29,7 @@ public:
     int getQuickness();
     int getArmor();
     int getDamage();
-    int takeDamage(int attack, int attackQuickness);
+    int takeDamage(int base_damage, int attackQuickness);
     Inventory* getInventory();
 };
 #endif //GAMETEST_ENTITY_H
