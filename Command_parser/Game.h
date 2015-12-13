@@ -26,7 +26,7 @@ private:
     int * quit;
 
     int status = 0; //status = 0 when in normal mode, 1 when in combat mode, 2 when in inventory
-
+    int previous_status = 0; // when returning from inventory
 
     void sout(std::string message);
     void showPossibleCommands();
@@ -49,7 +49,7 @@ public:
     //all inventory related commands
     void search(std::vector<std::string> * params); // search some inventory
 
-
+    std::vector<Inventory*> getAllReachableInventories();
 
 };
 

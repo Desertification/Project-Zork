@@ -298,8 +298,8 @@ Game::Game(int *exit) {
     //65
     rooms.push_back(new Room("You get rescued by the good fairy.\n"
                                      "Out of gratitude she gives you a glass bowl with a flame inside.\n"));
-    //66
-    rooms.push_back(new Room("Congratulations" + hero->getName() + "\n"
+    //66  todo hero does not exist here, can't get its name
+    rooms.push_back(new Room("Congratulations\n"
                                      "You have reached the kingdom of christ and saved the world.\n"
                                      "Jezus comes to you, and asks :\n"
                                      "\"Can i please have the glass bowl with the burning flame.\"\n"));
@@ -696,31 +696,29 @@ void Game::attack(std::vector<std::string> *params) {
 void Game::search(std::vector<std::string> *params) { //TODO grab commands / use commands
     //case or structure example: http://stackoverflow.com/questions/4704986/switch-statement-using-or
     // todo fix this ugly code
-    println("WIP");
-    bool found_match = 0;
-    std::vector<Inventory*>* inventories = current_room->getInventories();
-    for (auto value : *inventories){
+    std::vector<Inventory *> test = getAllReachableInventories();
+    for (auto value : test) {
         if (value->getName() == (*params)[0]){
-            found_match = 1;
             globalInventory = value;
+            previous_status = status;
             status = 2;
-            break;
         }
     }
-    if (not found_match) {
-        std::vector<Monster*>* monsters = current_room->getMonsters();
-        for (auto value : *monsters){
-            if (value->getAggressiveness() != 1 and value->getInventory()->getName() == (*params)[0]){
-                found_match = 1;
-                globalInventory = value->getInventory();
-                status = 2;
-                break;
+    println("WIP");
+}
+
+std::vector<Inventory *> Game::getAllReachableInventories() {
+    std::vector<Inventory*> inventories;{
+        inventories.push_back(hero->getInventory());
+        if (status == 0){ // while in combat, your backpack is the only thing in range
+            std::vector<Inventory*>* room_Inventories = current_room->getInventories();
+            inventories.insert(inventories.begin(),room_Inventories->begin(),room_Inventories->end());//IDE marking bug
+            for (auto value : *current_room->getMonsters()){
+                if (value->getAggressiveness() == -1){
+                    inventories.push_back(value->getInventory());
+                }
             }
         }
     }
-    if (not found_match and hero->getInventory()->getName() == (*params)[0]) {
-        globalInventory = hero->getInventory();
-        status = 2;
-    }
-    status = 0; // revert status as code is WIP
+    return inventories;
 }
