@@ -506,28 +506,11 @@ void Game::showPossibleCommands() {
                 }
             }
             //show all possible searches
-            //TODO get all the available inventories and push in to list
-            //player inventory
-            Inventory* playerInventory = hero->getInventory();
-            std::string command = "\"search " + playerInventory->getName() + "\"";
-            possibleCommands.push_back(command);
-            //room inventories
-            std::vector<Inventory*>* roomInventories = current_room->getInventories();
-            for (auto value : *roomInventories){
-                std::string command = "\"search " + value->getName();
+            std::vector<Inventory*> inventories = getAllReachableInventories();
+            for (auto value : inventories){
+                std::string command = "\"search " + value->getName() + "\"";
                 possibleCommands.push_back(command);
             }
-            //monster inventories (when dead)
-            //can be inserted in monster attack for loop
-            for (auto value : *monsters) {
-                if (value->getAggressiveness() == -1){ // test if monster is dead
-                    Inventory* monsterInventory = value->getInventory();
-                    std::string commando = "\"search " + monsterInventory->getName() + "\"";
-                    possibleCommands.push_back(commando);
-                }
-
-            }
-
 
             possibleCommands.push_back("\"exit\"");
 
