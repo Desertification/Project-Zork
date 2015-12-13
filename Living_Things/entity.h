@@ -9,7 +9,7 @@
 #include <iostream>
 #include <random>
 #include "../Inventory.h"
-
+class Inventory;
 class Entity {
     std::string name;
     int health;

@@ -7,7 +7,7 @@
 
 #include <vector>
 #include "Item.h"
-
+class Item;
 class Inventory {
 private:
     std::string name;

@@ -14,7 +14,8 @@
 
 
 class Connection; //forward declaration of room class, these classes reference each other, compiler can't compile them at the same time, so it keeps cycling between them
-
+class Monster;
+class Inventory;
 class Room {
 private:
     std::string description;
