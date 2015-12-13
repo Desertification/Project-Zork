@@ -10,7 +10,6 @@
 class Entity;
 class SwingableItem : public Item{
 private:
-protected:
     int damage;
 public:
     SwingableItem(std::string name,std::string description,int weight, int damage);
