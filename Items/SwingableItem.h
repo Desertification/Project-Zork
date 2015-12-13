@@ -11,10 +11,10 @@ class Entity;
 class SwingableItem : public Item{
 private:
 protected:
-    int damage = 0;
+    int damage;
 public:
-    SwingableItem(std::string name,std::string description,int weight);
-    void swing(Entity *user, Entity *monster);
+    SwingableItem(std::string name,std::string description,int weight, int damage);
+    virtual void swing(Entity *user, Entity *monster);
 };
 
 
