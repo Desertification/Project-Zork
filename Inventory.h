@@ -6,7 +6,7 @@
 #define GAMETEST_INVENTORY_H
 
 #include <vector>
-#include "Item.h"
+#include "Items/Item.h"
 class Item;
 class Inventory {
 private:

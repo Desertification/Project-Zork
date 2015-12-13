@@ -3,7 +3,7 @@
 //
 
 #include "Item.h"
-#include "Lib.h"
+#include "../Lib.h"
 
 Item::Item(std::string name, std::string description, int weight) {
     this->name = name;
