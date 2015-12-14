@@ -85,7 +85,7 @@ Game::Game(int *exit) {
     //21 //TODO add a flashlight object in the coffin
     rooms.push_back(new Room("You arrive in a thomb.\n"
                                      "There is a beautifull marble coffin in the middle.\n"
-                                     "In the marble there is some engraved text :\n"
+                                     "In the marble there is somle engraved text :\n"
                                      "\"Here lise the witness\"\n"
                                      "There is a tunnel on the other side of the coffin\n"));
 
@@ -173,7 +173,9 @@ Game::Game(int *exit) {
 
     //40
     rooms.push_back(new Room("As you go and open the cage with a baby in it, you hear the puppy make a high pitched sound, and then just fall dead.\n"
-                                     "The baby smiles as you pick it up, and a hole in the wall appears.\n"));
+                                     "The baby smiles as you pick it up, then it slowly fades back to the real world. \n"
+                                     "The only thing left in your hands, is a name tag. It says Adolf Hitler.\n"
+                                     "A hole in the wall appears.\n"));
 
     //41 TODO add dog
     rooms.push_back(new Room("As you go and open the cage with a pupy in it, you hear the baby cry, and then just fall dead.\n"
@@ -405,7 +407,170 @@ Game::Game(int *exit) {
     connections.push_back(new Connection(rooms[16], "go to the book in the bookcase", "bookcase", rooms[18], "Go back",
                                          "back"));
     //21
-    connections.push_back(new Connection(rooms[16], "go to the book in the bookcase", "bookcase", rooms[18], "Go back",
+    connections.push_back(new Connection(rooms[18], "go into the tunnel", "tunnel", rooms[20], "Go back",
+                                         "back"));
+    //22
+    connections.push_back(new Connection(rooms[20], "go further into the tunnel", "further", rooms[21], "Go back",
+                                         "back"));
+    //23
+    connections.push_back(new Connection(rooms[21], "go into the tunnel", "tunnel", rooms[22], "Go back",
+                                         "back"));
+    //24
+    connections.push_back(new Connection(rooms[22], "go into the hole", "tunnel", rooms[23], "Go back",
+                                         "back"));
+
+    //25
+    connections.push_back(new Connection(rooms[22], "go talk to the person", "tunnel", rooms[24], "Go back",
+                                         "back"));
+
+    //26 todo disable this from happening when the monster isn't dead
+    connections.push_back(new Connection(rooms[22], "go further", "further", rooms[26], "Go back",
+                                         "back"));
+    //27
+    connections.push_back(new Connection(rooms[26], "go the hostile approach", "hostile", rooms[27], "Go back",
+                                         "back"));
+
+    //28
+    connections.push_back(new Connection(rooms[26], "Tell him that you are the witness", "friendly", rooms[28], "Go back",
+                                         "back"));
+
+    //29
+    connections.push_back(new Connection(rooms[28], "Tell him you're here to save the world", "friendly", rooms[29], "Go back",
+                                         "back"));
+
+    //30
+    connections.push_back(new Connection(rooms[29], "Decline his offer", "decline", rooms[30], "Go back",
+                                         "back"));
+
+    //31
+    connections.push_back(new Connection(rooms[30], "go down the rope", "rope", rooms[31], "Go up the rope",
+                                         "rope"));
+    //32
+    connections.push_back(new Connection(rooms[31], "go trough the window", "window", rooms[32], "Go back",
+                                         "back"));
+    //33
+    connections.push_back(new Connection(rooms[32], "go sneak", "sneak", rooms[33], "Go back",
+                                         "back"));
+    //34 todo only enable this when all monsters are dead
+    connections.push_back(new Connection(rooms[32], "just continue to the door", "door", rooms[34], "Go back",
+                                         "back"));
+    //35
+    connections.push_back(new Connection(rooms[33], "just continue to the door", "door", rooms[34], "Go back",
+                                         "back"));
+
+    //36
+    connections.push_back(new Connection(rooms[34], "Climb the wall", "climb", rooms[35], "Go back",
+                                         "back"));
+    //37
+    connections.push_back(new Connection(rooms[35], "Go trough the crack", "crack", rooms[36], "Go back",
+                                         "back"));
+    //38
+    connections.push_back(new Connection(rooms[36], "continue walking the street", "street", rooms[37], "Go back",
+                                         "back"));
+    //39
+    connections.push_back(new Connection(rooms[37], "jump into the hole", "hole", rooms[38], "Go back",
+                                         "back"));
+    //40
+    connections.push_back(new Connection(rooms[38], "Go trough the tiny door", "door", rooms[39], "Go back",
+                                         "back"));
+    //41
+    connections.push_back(new Connection(rooms[39], "Rescue the Baby", "baby", rooms[40], "Go back",
+                                         "back"));
+    //42
+    connections.push_back(new Connection(rooms[39], "Rescue the puppy", "puppy", rooms[41], "Go back",
+                                         "back"));
+    //43
+    connections.push_back(new Connection(rooms[40], "Go trough the hole", "hole", rooms[42], "Go back",
+                                         "back"));
+    //44
+    connections.push_back(new Connection(rooms[41], "Go trough the hole", "hole", rooms[42], "Go back",
+                                         "back"));
+    //45
+    connections.push_back(new Connection(rooms[42], "Go up the stairs", "stairs", rooms[43], "Go back",
+                                         "back"));
+    //46
+    connections.push_back(new Connection(rooms[43], "Continue", "further", rooms[44], "Go back",
+                                         "back"));
+    //47
+    connections.push_back(new Connection(rooms[44], "Go to the door", "door", rooms[45], "Go back",
+                                         "back"));
+    //48
+    connections.push_back(new Connection(rooms[45], "Go and read the poem", "read", rooms[46], "Go back",
+                                         "back"));
+    //48
+    connections.push_back(new Connection(rooms[46], "Cry on the plant", "cry", rooms[47], "Go back",
+                                         "back"));
+    //49
+    connections.push_back(new Connection(rooms[47], "Go down the stairs", "stairs", rooms[48], "Go back up the stairs",
+                                         "stairs"));
+    //50
+    connections.push_back(new Connection(rooms[48], "Go to the door", "door", rooms[49], "Go back",
+                                         "back"));
+    //51
+    connections.push_back(new Connection(rooms[49], "Explain that you are the witness", "explain", rooms[50], "Go back",
+                                         "back"));
+    //52
+    connections.push_back(new Connection(rooms[50], "Tell it that you are here to battle evil", "tell", rooms[51], "Go back",
+                                         "back"));
+    //53
+    connections.push_back(new Connection(rooms[51], "Accept do it a favor", "accept", rooms[52], "Go back",
+                                         "back"));
+    //54
+    connections.push_back(new Connection(rooms[52], "Go to the door", "door", rooms[53], "Go back",
+                                         "back"));
+    //55
+    connections.push_back(new Connection(rooms[53], "Go to the door", "door", rooms[54], "Go back",
+                                         "back"));
+    //56
+    connections.push_back(new Connection(rooms[54], "Go to the door", "door", rooms[55], "Go back",
+                                         "back"));
+    //57
+    connections.push_back(new Connection(rooms[55], "Go to the door", "door", rooms[56], "Go back",
+                                         "back"));
+    //58
+    connections.push_back(new Connection(rooms[56], "Go to the door", "door", rooms[57], "Go back",
+                                         "back"));
+    //59
+    connections.push_back(new Connection(rooms[57], "Go to the door", "door", rooms[58], "Go back",
+                                         "back"));
+    //60
+    connections.push_back(new Connection(rooms[58], "Go to the golden gate", "gate", rooms[59], "Go back",
+                                         "back"));
+    //61
+    connections.push_back(new Connection(rooms[59], "Answer positive", "yes", rooms[60], "Go back",
+                                         "back"));
+    //62
+    connections.push_back(new Connection(rooms[60], "Answer positive", "yes", rooms[61], "Go back",
+                                         "back"));
+    //63
+    connections.push_back(new Connection(rooms[61], "Answer negative", "no", rooms[62], "Go back",
+                                         "back"));
+    //64
+    connections.push_back(new Connection(rooms[62], "Answer negative", "no", rooms[63], "Go back",
+                                         "back"));
+    //65
+    connections.push_back(new Connection(rooms[63], "Answer negative", "no", rooms[64], "Go back",
+                                         "back"));
+    //66
+    connections.push_back(new Connection(rooms[64], "Answer negative", "no", rooms[65], "Go back",
+                                         "back"));
+    //67
+    connections.push_back(new Connection(rooms[65], "Go to the final gate", "gate", rooms[66], "Go back",
+                                         "back"));
+    //68
+    connections.push_back(new Connection(rooms[66], "Give it to him", "give", rooms[67], "Go back",
+                                         "back"));
+    //69
+    connections.push_back(new Connection(rooms[66], "Don't give it to him", "keep", rooms[68], "Go back",
+                                         "back"));
+    //70
+    connections.push_back(new Connection(rooms[62], "Answer positive", "yes", rooms[70], "Go back",
+                                         "back"));
+    //71
+    connections.push_back(new Connection(rooms[63], "Answer positive", "yes", rooms[70], "Go back",
+                                         "back"));
+    //72
+    connections.push_back(new Connection(rooms[64], "Answer positive", "yes", rooms[70], "Go back",
                                          "back"));
 
     //the street
