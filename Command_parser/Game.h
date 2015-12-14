@@ -34,7 +34,7 @@ private:
     //all stuff for the combat
     void inCombat();
     Monster *combatMoster; //the last monster you were in combat with
-    Inventory* globalInventory; // to store the selected inventory
+    Inventory*selectedInventory; // to store the selected inventory
     void damageGiven(int givenDamage);
 public:
     Game(int * exit);
@@ -51,6 +51,8 @@ public:
     void attack(std::vector<std::string> * params); //go in combat
     //all inventory related commands
     void search(std::vector<std::string> * params); // search some inventory
+    void grab(std::vector<std::string> * params); // grab an item
+    void leave(std::vector<std::string> * params); // leave inventory
     // returns vector of inventories the player can access at that time
     std::vector<Inventory*> getAllReachableInventories();
 

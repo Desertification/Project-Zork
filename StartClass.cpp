@@ -13,7 +13,7 @@ startClass::startClass() {
     CommandParser parser;
     Game game(&exit);
 
-    //acouple the commands with the method from the class Game it will execute
+    //couple the commands with the method from the class Game it will execute
     parser.registerCommand("sayhello", &Game::sayHello);
     parser.registerCommand("saybye", &Game::sayBye);
     parser.registerCommand("go", &Game::go);
@@ -21,6 +21,8 @@ startClass::startClass() {
     parser.registerCommand("exit", &Game::exit);
     parser.registerCommand("attack", &Game::attack);
     parser.registerCommand("search", &Game::search);
+    parser.registerCommand("grab", &Game::grab);
+    parser.registerCommand("leave", &Game::leave);
 
 
 

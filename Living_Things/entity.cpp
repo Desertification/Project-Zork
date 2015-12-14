@@ -89,3 +89,18 @@ float Entity::getHealthPercentage() {
 void Entity::takeDamage(int base_damage) {
     health = health - base_damage;
 }
+
+void Entity::holdItem(Item *item) {
+    if (this->item) { // already holds an item
+        inventory->addItem(item); // put previous item in inventory
+    }
+    this->item = item; // add new item
+}
+
+Item *Entity::getItem() {
+    return item;
+}
+
+void Entity::dropItem() {
+    delete(item);
+}

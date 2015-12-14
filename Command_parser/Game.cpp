@@ -3,6 +3,7 @@
 //
 #include "Game.h"
 #include "../Lib.h"
+#include "../Items/Apple.h"
 
 Game::Game(int *exit) {
     //create all the stuff in the most non oop way
@@ -461,14 +462,17 @@ Game::Game(int *exit) {
     std::cout << "please enter the username you want to use" << std::endl;
     std::string username;
     getline(std::cin, username);
+
     hero = new Hero(username);
+    hero->getInventory()->addItem(new Apple());
+
     //the first room
     current_room = rooms[8];
     //CommandInterpreter interpreter(current_room, &exit, hero);
     std::cout << current_room->explore();
     this->quit = exit;
 }
-
+// todo replace with Lib println to be replaced by gui function
 void Game::sout(std::string message) {
     std::cout << message << std::endl;
 }
@@ -488,7 +492,7 @@ void Game::showPossibleCommands() {
     //show special commands
     possibleCommands.push_back("\"show commands\"");
 
-    if (status != 1){ // when not in combat
+    if (status == 0){ // only when in normal mode
         //show all possible rooms
         std::vector<Connection *> *connections = current_room->getConnections();
         for (Connection *connection : *connections) {
@@ -510,11 +514,24 @@ void Game::showPossibleCommands() {
         possibleCommands.push_back("\"attack fast\"");
         // todo get swingable items in hand
     }
-    //show all possible searches
-    std::vector<Inventory*> inventories = getAllReachableInventories();
-    for (auto value : inventories){
-        std::string command = "\"search " + value->getName() + "\"";
-        possibleCommands.push_back(command);
+
+    if (status == 0 or status == 1) { // when in combat or normal
+        //show all possible inventories to search)
+        std::vector<Inventory *> inventories = getAllReachableInventories();
+        for (auto value : inventories) {
+            std::string command = "\"search " + value->getName() + "\"";
+            possibleCommands.push_back(command);
+        }
+    }
+
+    if (status == 2) { // when in an inventory
+        // show all possible items to grab
+        for (auto value : *selectedInventory->getItems()) {
+            std::string command = "\"grab " + value->getName() + "\"";
+            possibleCommands.push_back(command);
+        }
+        // leave inventory command
+        possibleCommands.push_back("\"leave " + selectedInventory->getName() + "\"");
     }
 
     possibleCommands.push_back("\"exit\"");
@@ -600,29 +617,21 @@ void Game::go(std::vector<std::string> *params) {
 }
 
 void Game::show(std::vector<std::string> *params) {
-    switch (status) {
-        case 1:
-            inCombat();
-            break;
-        default:
-            //return all available commands
-            if ((*params)[0] == "commands") {
-                showPossibleCommands();
-            }
-
-                //show a random number, going to let this in the code as a kind of easter egg
-            else if ((*params)[0] == "random") {
-                std::random_device *randomDevice = new std::random_device();
-                std::cout << randomDevice->operator()() << std::endl;
-                std::cout << randomDevice->operator()() % 100 << std::endl; //between 0 and 100
-                delete randomDevice;
-            }
-            else {
-                sout("No such command");
-            }
+    //return all available commands
+    if ((*params)[0] == "commands") {
+        showPossibleCommands();
+    }
+        //show a random number, going to let this in the code as a kind of easter egg
+    else if ((*params)[0] == "random") {
+        std::random_device *randomDevice = new std::random_device();
+        std::cout << randomDevice->operator()() << std::endl;
+        std::cout << randomDevice->operator()() % 100 << std::endl; //between 0 and 100
+        delete randomDevice;
+    }
+    else {
+        sout("No such command");
     }
 }
-
 
 void Game::attack(std::vector<std::string> *params) {
     switch (status) {
@@ -682,17 +691,26 @@ void Game::attack(std::vector<std::string> *params) {
 }
 
 void Game::search(std::vector<std::string> *params) { //TODO grab commands / use commands
-    //case or structure example: http://stackoverflow.com/questions/4704986/switch-statement-using-or
-    // todo fix this ugly code
     std::vector<Inventory *> test = getAllReachableInventories();
     for (auto value : test) {
-        if (value->getName() == (*params)[0]){
-            globalInventory = value;
-            previous_status = status;
-            status = 2;
+        if (value->getName() == (*params)[0]) {
+            if (value->isEmpty()) {
+                println("Nothing to be found here");
+            }
+            else {
+                selectedInventory = value;
+                previous_status = status;
+                status = 2;
+                println(value->getName() + " contains:");
+                for (auto value : *selectedInventory->getItems()){
+                    println(value->getName());
+                }
+            }
+        }
+        else {
+            println("No such inventory found");
         }
     }
-    println("WIP");
 }
 
 std::vector<Inventory *> Game::getAllReachableInventories() {
@@ -709,4 +727,33 @@ std::vector<Inventory *> Game::getAllReachableInventories() {
         }
     }
     return inventories;
+}
+
+void Game::grab(std::vector<std::string> *params) {
+    if (status == 2){
+        for (auto value : *selectedInventory->getItems()){
+            if (value->getName() == (*params)[0]){
+                hero->holdItem(value);
+                selectedInventory->removeItem(value->getName());
+                println("You grabed " + value->getName());
+                status = previous_status;
+                break;
+            }
+            else {
+                println("Invalid item");
+            }
+        }
+    }
+    else {
+        println("Invalid command");
+    }
+}
+
+void Game::leave(std::vector<std::string> *params) {
+    if (status == 2){
+        status = previous_status;
+    }
+    else {
+        println("Invalid command");
+    }
 }

@@ -22,6 +22,7 @@ public:
     void addItem(Item* Item_pointer);
     Item* getItem(std::string item_name);
     std::vector<Item*>* getItems();
+    bool isEmpty();
 };
 
 

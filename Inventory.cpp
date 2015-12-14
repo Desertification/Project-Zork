@@ -15,7 +15,7 @@ int Inventory::getWeight() {
 void Inventory::removeItem(std::string name) {
     for (int i = 0; i < itemlist.size(); ++i) {
         if (itemlist[i]->getName() == name){
-            delete(itemlist[i]); // removes item from heap
+            //delete(itemlist[i]); // removes item from heap , no longer needed, drop will handle the destruction
             itemlist.erase(itemlist.begin() + i); // removes pointer to item in the vector
             break;
         }
@@ -47,4 +47,8 @@ std::string Inventory::getName() {
 
 void Inventory::setName(std::string name) {
     this->name = name;
+}
+
+bool Inventory::isEmpty() {
+    return itemlist.empty();
 }

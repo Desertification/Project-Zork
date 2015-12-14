@@ -9,6 +9,7 @@
 #include <iostream>
 #include <random>
 #include "../Inventory.h"
+class Item;
 class Inventory;
 class Entity {
     std::string name;
@@ -19,6 +20,7 @@ class Entity {
     int armor;
     int damage;
     int getRandomNumber(int);
+    Item* item = nullptr;
 protected:
     Inventory* inventory;
 public:
@@ -34,6 +36,9 @@ public:
     int getDamage();
     void takeDamage(int base_damage);
     int takeDamage(int base_damage, int attackQuickness);
+    void holdItem(Item *item);
+    Item* getItem();
+    void dropItem();
     void heal(int heal_amount);
     Inventory* getInventory();
 };
