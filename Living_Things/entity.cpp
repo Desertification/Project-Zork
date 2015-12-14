@@ -103,4 +103,5 @@ Item *Entity::getItem() {
 
 void Entity::dropItem() {
     delete(item);
+    item = nullptr;
 }

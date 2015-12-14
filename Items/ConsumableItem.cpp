@@ -7,3 +7,7 @@
 ConsumableItem::ConsumableItem(std::string name, std::string description, int weight) : Item(name,description,weight){
     this->consumable = true;
 }
+
+void ConsumableItem::consume(Entity *user) {
+    user->dropItem();
+}

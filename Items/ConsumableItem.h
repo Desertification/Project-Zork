@@ -12,6 +12,7 @@ class ConsumableItem : public Item {
 private:
 public:
     ConsumableItem(std::string name, std::string description, int weight);
+    virtual void consume(Entity* user);
 };
 
 

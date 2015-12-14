@@ -53,6 +53,13 @@ public:
     void search(std::vector<std::string> * params); // search some inventory
     void grab(std::vector<std::string> * params); // grab an item
     void leave(std::vector<std::string> * params); // leave inventory
+    //all item related commands
+    void drop(std::vector<std::string> * params); // drop an item
+    void info(std::vector<std::string> * params); // get information from item
+    void consume(std::vector<std::string> * params);
+    void use(std::vector<std::string> * params);
+    void swing(std::vector<std::string> * params);
+    void equip(std::vector<std::string> * params);
     // returns vector of inventories the player can access at that time
     std::vector<Inventory*> getAllReachableInventories();
 

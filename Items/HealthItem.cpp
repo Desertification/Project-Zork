@@ -15,4 +15,5 @@ void HealthItem::consume(Entity *user) {
     else {
         user->takeDamage(0-health_modifier);
     }
+    user->dropItem();
 }

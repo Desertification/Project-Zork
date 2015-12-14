@@ -507,12 +507,22 @@ void Game::showPossibleCommands() {
                 possibleCommands.push_back(commando);
             }
         }
+        // equip armor
+        if (hero->getItem()){
+            possibleCommands.push_back("\"equip " + hero->getItem()->getName() + "\"");
+        }
+        // use item (key like functionality)
+        if (hero->getItem()){
+            possibleCommands.push_back("\"use " + hero->getItem()->getName() + "\"");
+        }
     }
     else if (status == 1) { // when in combat
         //show all possible attacks
-        possibleCommands.push_back("\"attack strong\"");
+        possibleCommands.push_back("\"attack strong\""); // fixme would punch fit better here?
         possibleCommands.push_back("\"attack fast\"");
-        // todo get swingable items in hand
+        if (hero->getItem()){
+            possibleCommands.push_back("\"swing " + hero->getItem()->getName() + "\"");
+        }
     }
 
     if (status == 0 or status == 1) { // when in combat or normal
@@ -521,6 +531,13 @@ void Game::showPossibleCommands() {
         for (auto value : inventories) {
             std::string command = "\"search " + value->getName() + "\"";
             possibleCommands.push_back(command);
+        }
+        //show item commands
+        if (hero->getItem()) {
+            std::string itemname = hero->getItem()->getName();
+            possibleCommands.push_back("\"drop " + itemname + "\"");
+            possibleCommands.push_back("\"consume " + itemname + "\"");
+            possibleCommands.push_back("\"info " + itemname + "\"");
         }
     }
 
@@ -752,6 +769,90 @@ void Game::grab(std::vector<std::string> *params) {
 void Game::leave(std::vector<std::string> *params) {
     if (status == 2){
         status = previous_status;
+    }
+    else {
+        println("Invalid command");
+    }
+}
+// todo find a way to remove these repeated if (boilerplate code)
+void Game::drop(std::vector<std::string> *params) {
+    if (hero->getItem() and status != 2){
+        if (hero->getItem()->getName() == (*params)[0]){
+            hero->dropItem();
+        }
+        else {
+            println("You don't hold that item");
+        }
+    }
+    else {
+        println("Invalid command");
+    }
+}
+
+void Game::info(std::vector<std::string> *params) {
+    if (hero->getItem() and status != 2){
+        if (hero->getItem()->getName() == (*params)[0]){
+            println(hero->getItem()->getDescription()); //todo more info would be nice
+        }
+        else {
+            println("You don't hold that item");
+        }
+    }
+    else {
+        println("Invalid command");
+    }
+}
+
+void Game::consume(std::vector<std::string> *params) {
+    if (hero->getItem() and status != 2){
+        if (hero->getItem()->getName() == (*params)[0]){
+            hero->getItem()->consume(hero);
+        }
+        else {
+            println("You don't hold that item");
+        }
+    }
+    else {
+        println("Invalid command");
+    }
+}
+
+void Game::use(std::vector<std::string> *params) {
+    if (hero->getItem() and status == 0){
+        if (hero->getItem()->getName() == (*params)[0]){
+            hero->getItem()->use(hero,current_room);
+        }
+        else {
+            println("You don't hold that item");
+        }
+    }
+    else {
+        println("Invalid command");
+    }
+}
+
+void Game::swing(std::vector<std::string> *params) {
+    if (hero->getItem() and status == 1){
+        if (hero->getItem()->getName() == (*params)[0]){
+            hero->getItem()->swing(hero,combatMoster);
+        }
+        else {
+            println("You don't hold that item");
+        }
+    }
+    else {
+        println("Invalid command");
+    }
+}
+
+void Game::equip(std::vector<std::string> *params) {
+    if (hero->getItem() and status == 0){
+        if (hero->getItem()->getName() == (*params)[0]){
+            hero->getItem()->equip(hero);
+        }
+        else {
+            println("You don't hold that item");
+        }
     }
     else {
         println("Invalid command");

@@ -24,6 +24,14 @@ startClass::startClass() {
     parser.registerCommand("grab", &Game::grab);
     parser.registerCommand("leave", &Game::leave);
 
+    parser.registerCommand("drop", &Game::drop);
+    parser.registerCommand("consume", &Game::consume);
+    parser.registerCommand("use", &Game::use);
+    parser.registerCommand("swing", &Game::swing);
+    parser.registerCommand("info", &Game::info);
+    parser.registerCommand("equip", &Game::equip);
+
+
 
 
 
