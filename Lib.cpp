@@ -6,7 +6,7 @@
 #include "Living_Things/entity.h"
 #include <iostream>
 
-bool using_ncurses=false;
+bool using_ncurses=true;
 WINDOW *parentwin = nullptr;
 WINDOW *answerwin = nullptr;
 WINDOW *commandwin = nullptr;
@@ -35,15 +35,15 @@ void createwindows() {
         //venstertje voor antwoord
         ybeginans = 0;
         xbeginans = 0;
-        xgrooteans = (maxx - 10 - 1);
+        xgrooteans = (maxx - 20 - 1);
         ygrooteans = (maxy - 20 - 1);
         answerwin = derwin(parentwin, xgrooteans, ygrooteans, xbeginans, ybeginans);
 
         //venstertje voor keuze commando's
         ybegincommand = 0;
-        xbegincommand = (maxx - 10);
+        xbegincommand = (maxx - 20);
         ygrootecommand = (maxy - 20 - 1);
-        xgrootecommand = 10;
+        xgrootecommand = 20;
         commandwin = derwin(parentwin, xgrootecommand, ygrootecommand, xbegincommand, ybegincommand);
         box(commandwin, 0, 0);
 
