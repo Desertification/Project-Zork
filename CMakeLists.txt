@@ -15,6 +15,8 @@ set(
         Items/TestItem.cpp Items/TestItem.h Lib.cpp Lib.h Items/SwingableItem.cpp Items/SwingableItem.h
         Items/Flashlight.cpp Items/Flashlight.h Items/Sword.cpp Items/Sword.h
         Items/ConsumableItem.cpp Items/ConsumableItem.h Items/HealthItem.cpp Items/HealthItem.h
-        Items/Apple.cpp Items/Apple.h Items/BlackApple.cpp Items/BlackApple.h neopixel/I2cNeo.cpp neopixel/I2cNeo.h)
+        Items/Apple.cpp Items/Apple.h Items/BlackApple.cpp Items/BlackApple.h neopixel/I2cNeo.cpp neopixel/I2cNeo.h
+        Map.cpp Map.h
+)
 add_executable(gametest ${SOURCE_FILES})
 target_link_libraries(gametest ${CURSES_LIBRARIES})
