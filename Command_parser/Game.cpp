@@ -463,18 +463,22 @@ Game::Game(int *exit) {
     std::string username;
     getline(std::cin, username);
 
+
+    //creëer windows
+    createwindows();
+
     hero = new Hero(username);
     hero->getInventory()->addItem(new Apple());
 
     //the first room
-    current_room = rooms[8];
+    current_room = rooms[0];
     //CommandInterpreter interpreter(current_room, &exit, hero);
-    std::cout << current_room->explore();
+    println(current_room->explore());
     this->quit = exit;
 }
 // todo replace with Lib println to be replaced by gui function
 void Game::sout(std::string message) {
-    std::cout << message << std::endl;
+    println(message);
 }
 
 void Game::exit(std::vector<std::string> *params) {
@@ -554,10 +558,16 @@ void Game::showPossibleCommands() {
     possibleCommands.push_back("\"exit\"");
 
     //print all this stuff
-    for (std::string command: possibleCommands) {
+    /*for (std::string command: possibleCommands) {
         sout(command);
-    }
+    }*/
 
+    //print all this stuff
+    menu->clear();
+    for (std::string command: possibleCommands) {
+        menu->push_back(command);
+    }
+    createmenu();
 }
 
 void Game::damageGiven(int givenDamage) {

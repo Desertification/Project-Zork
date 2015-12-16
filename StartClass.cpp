@@ -3,6 +3,7 @@
 //
 
 #include "StartClass.h"
+#include "Lib.h"
 
 
 startClass::startClass() {
@@ -30,7 +31,6 @@ startClass::startClass() {
     parser.registerCommand("swing", &Game::swing);
     parser.registerCommand("info", &Game::info);
     parser.registerCommand("equip", &Game::equip);
-
 
 
 
