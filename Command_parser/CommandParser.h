@@ -8,6 +8,7 @@
 
 #include "Game.h"
 #include "Command.h"
+#include "../Lib.h"
 
 class CommandParser {
 

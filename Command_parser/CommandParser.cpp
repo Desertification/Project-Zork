@@ -24,32 +24,37 @@ void CommandParser::registerCommand(std::string key, commandPointer function) {
 Command * CommandParser::listen(Game * game) {
 
     std::string line;
-    std::getline(std::cin, line);
 
-    // Tokenize
-    std::vector<std::string> params = split(line, ' ');
-
-    int i = 0;
-    while (i < commands.size() &&
-           // fixme ALEX segmentation fault here when line is ""(nothing)
-           commands[i]->key.compare(params[0]) != 0) {
-
-        i++;
+    if(using_ncurses){
+        line = getLine();
+    }else{
+        std::getline(std::cin, line);
     }
 
-    if (i < commands.size()) {
-        params.erase(params.begin());   // Remove actual command
+    if(line!="") {
+        // Tokenize
+        std::vector<std::string> params = split(line, ' ');
+
+        int i = 0;
+        while (i < commands.size() &&
+               commands[i]->key.compare(params[0]) != 0) {
+
+            i++;
+        }
+
+        if (i < commands.size()) {
+            params.erase(params.begin());   // Remove actual command
 
 
-        commandPointer ptr = commands[i]->function;
+            commandPointer ptr = commands[i]->function;
 
-        (*game.*ptr)(&params);
-        // (*this.*(commands[i]->function(&params));
-    } else {
-        std::cout << "Unknown command" << std::endl;
+            (*game.*ptr)(&params);
+            // (*this.*(commands[i]->function(&params));
+        } else {
+            std::cout << "Unknown command" << std::endl;
+        }
+
     }
-
-
     return NULL;
 }
 

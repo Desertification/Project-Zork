@@ -3,6 +3,7 @@
 //
 
 #include "StartClass.h"
+#include "Lib.h"
 
 
 startClass::startClass() {
@@ -34,9 +35,13 @@ startClass::startClass() {
 
 
 
-
     while(exit == 0) {
+        if(using_ncurses){
+            if(game.getHero()){updatevaluesplayer(game.getHero());}
+            game.showPossibleCommands();
+        }
         //listen for commands that are linked to methods from the Game class
         parser.listen(&game);
+
     }
 }

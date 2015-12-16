@@ -22,7 +22,7 @@ private:
     Monster *killed;
 
     Room* current_room;
-    Hero* hero;
+    Hero* hero= nullptr;
 
     int * quit;
 
@@ -30,13 +30,13 @@ private:
     int previous_status = 0; // when returning from inventory
 
     void sout(std::string message);
-    void showPossibleCommands();
 
     //all stuff for the combat
     void inCombat();
     Monster *combatMonster; //the last monster you were in combat with
     Inventory*selectedInventory; // to store the selected inventory
     void damageGiven(int givenDamage);
+    void gotoNonCombat();
 public:
     Game(int * exit);
 
@@ -64,6 +64,8 @@ public:
     // returns vector of inventories the player can access at that time
     std::vector<Inventory*> getAllReachableInventories();
 
+    void showPossibleCommands();
+    Entity *getHero();
 };
 
 

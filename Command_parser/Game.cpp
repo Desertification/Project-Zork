@@ -41,18 +41,41 @@ Game::Game(int *exit) {
     std::cout << "please enter the username you want to use" << std::endl;
     std::string username;
     getline(std::cin, username);
+
+
+    //creëer windows
+    createwindows();
+
     hero = new Hero(username);
     hero->getInventory()->addItem(new Apple());
 
     //the first room
     current_room = rooms[0];
     //CommandInterpreter interpreter(current_room, &exit, hero);
-    std::cout << current_room->explore();
+    println(current_room->explore());
     this->quit = exit;
 }
 // todo replace with Lib println to be replaced by gui function
 void Game::sout(std::string message) {
-    std::cout << message << std::endl;
+    println(message);
+}
+
+void Game::gotoNonCombat() {
+    std::vector<Monster *> *monsters = current_room->getMonsters();
+    int aggressiveMonster = false;
+    for (Monster *monster : *monsters) {
+        if (monster->getAggressiveness()==3){
+            aggressiveMonster = true;
+            combatMoster = monster;
+        }
+    }
+    if(aggressiveMonster == true){
+        println("\n" + combatMoster->getName()+" has attacked you.");
+        status = 1;
+    } else{
+        status = 0;
+    }
+
 }
 
 void Game::exit(std::vector<std::string> *params) {
@@ -60,7 +83,7 @@ void Game::exit(std::vector<std::string> *params) {
 }
 
 void Game::inCombat() {
-    sout("I'm sorry, i can't let you do that while you're in combat.");
+    println("I'm sorry, i can't let you do that while you're in combat.");
 }
 
 //TODO show the possible commands for all combat options
@@ -68,7 +91,9 @@ void Game::showPossibleCommands() {
 
     std::vector<std::string> possibleCommands;
     //show special commands
-    possibleCommands.push_back("\"show commands\"");
+    if(!using_ncurses){
+        possibleCommands.push_back("\"show commands\"");
+    }
 
     if (status == 0){ // only when in normal mode
         //show all possible rooms
@@ -128,42 +153,37 @@ void Game::showPossibleCommands() {
         // leave inventory command
         possibleCommands.push_back("\"leave " + selectedInventory->getName() + "\"");
     }
-
-    possibleCommands.push_back("\"exit\"");
-
-    //print all this stuff
-    for (std::string command: possibleCommands) {
-        sout(command);
-    }
-
+    if(!using_ncurses){possibleCommands.push_back("\"exit\"");}
+    setpossiblecommands(possibleCommands);
 }
 
 void Game::damageGiven(int givenDamage) {
     if (givenDamage == -1) {
+        //println((combatMoster->getName() + " dodged your attack"));
         sout(combatMonster->getName() + " dodged your attack");
     } else {
-        sout("you dealt " + std::to_string(givenDamage) + " to " + combatMonster->getName());
+        println("you dealt " + std::to_string(givenDamage) + " to " + combatMonster->getName());
         if (combatMonster->getHealth() <= 0) {
             //set the monster as killed
             combatMonster->killed();
-            sout("you have triumphed over your enemy");
-            status = 0;
+            println("you have triumphed over your enemy");
+            gotoNonCombat();
         }else{
-            sout(combatMonster->getName() + " now has " + std::to_string(combatMonster->getHealth()) + " hp left");
+            println(combatMonster->getName() + " now has " + std::to_string(combatMonster->getHealth()) + " hp left");
         }
     }
     //first check if you are still in combat (in case the monster is already dead)
     if (status == 1){
         givenDamage =  hero->takeDamage(combatMonster->getDamage(), hero->getQuickness());
         if (givenDamage == -1) {
-            sout("you dodged an attack from " + combatMonster->getName());
+            println("you dodged an attack from " + combatMonster->getName());
         } else {
-            sout(combatMonster->getName() + " dealt " + std::to_string(givenDamage) + " to you");
+            println(combatMonster->getName() + " dealt " + std::to_string(givenDamage) + " to you");
             if (hero->getHealth() <= 0) {
                 *quit = 1;
-                sout("GAME OVER YOU DAMN NOOB");
+                println("GAME OVER YOU DAMN NOOB");
             } else {
-                sout("You now have " + std::to_string(hero->getHealth()) + " hp left");
+                println("You now have " + std::to_string(hero->getHealth()) + " hp left");
             }
         }
     }
@@ -177,7 +197,7 @@ void Game::sayHello(std::vector<std::string> *params) {
             inCombat();
             break;
         default:
-            std::cout << "Dude ... HELLLLLLOOOOO ......" << std::endl;
+            println("Dude ... HELLLLLLOOOOO ......");
     }
 }
 
@@ -187,7 +207,7 @@ void Game::sayBye(std::vector<std::string> *params) {
             inCombat();
             break;
         default:
-            std::cout << "Dude ... BE GONEEEEE ......" << std::endl;
+            println("Dude ... BE GONEEEEE ......" );
     }
 }
 
@@ -198,25 +218,25 @@ void Game::go(std::vector<std::string> *params) {
             break;
         default:
             if (params->size() >= 1) {
-                std::cout << "Going to room " << (*params)[0] << std::endl;
+                println("Going to room "+(*params)[0]);
                 //if the room isn't recognized
                 if (current_room->go((*params)[0]) == NULL) {
-                    sout("No such room available");
+                    println("No such room aviable");
                 } else {
                     //if the room is recognized, go to the new room, and explore it
                     current_room = current_room->go((*params)[0]);
-                    std::cout << current_room->explore();
-                    //automatically enter combat when there are monsters with aggresiveness level 3 in the room
+                    println(current_room->explore());
+                    //automatically enter combat when there are monsters with aggressiveness level 3 in the room
                     std::vector<Monster *> *monsters = current_room->getMonsters();
-                    int aggrasiveMonster = false;
+                    int aggressiveMonster = false;
                     for (Monster *monster : *monsters) {
                         if (monster->getAggressiveness()==3){
-                            aggrasiveMonster = true;
+                            aggressiveMonster = true;
                             combatMonster = monster;
                         }
                     }
-                    if(aggrasiveMonster == true){
-                        sout("A monster attacked you when you entered the room");
+                    if(aggressiveMonster == true){
+                        println(combatMonster->getName() + " attacked you when you entered the room");
                         status = 1;
                     }
                 }
@@ -230,14 +250,14 @@ void Game::show(std::vector<std::string> *params) {
         showPossibleCommands();
     }
         //show a random number, going to let this in the code as a kind of easter egg
-    else if ((*params)[0] == "random") {
+    /*else if ((*params)[0] == "random") {
         std::random_device *randomDevice = new std::random_device();
-        std::cout << randomDevice->operator()() << std::endl;
-        std::cout << randomDevice->operator()() % 100 << std::endl; //between 0 and 100
+        println(randomDevice->operator()());
+        println(randomDevice->operator()() % 100); //between 0 and 100
         delete randomDevice;
-    }
+    }*/
     else {
-        sout("No such command");
+        println("No such command");
     }
 }
 
@@ -253,7 +273,7 @@ void Game::attack(std::vector<std::string> *params) {
                 damageGiven(givenDamage);
             }
             else{
-                sout("You can't attack that way");
+                println("You can't attack that way");
             }
             break;
         default:
@@ -276,24 +296,24 @@ void Game::attack(std::vector<std::string> *params) {
 
             if (contains == 1) {
                 status = 1;
-                sout("you are now in combat");
+                println("you are now in combat");
 
-                sout(std::string("attack fast (damage :") +
+                println(std::string("attack fast (damage :") +
                      std::to_string(hero->getDamage() - combatMonster->getArmor()) + " chance to hit : " +
                      std::to_string(
                              100 - combatMonster->getChanceToDodge(hero->getQuickness())) + " %)");
-                sout("INSERT: \"attack fast\" for a normal attack");
-                sout(std::string("attack strong (damage :") +
+                println("INSERT: \"attack fast\" for a normal attack");
+                println(std::string("attack strong (damage :") +
                      std::to_string(hero->getDamage() * 2 - combatMonster->getArmor()) + " chance to hit : " +
                      std::to_string(
                              100 - combatMonster->getChanceToDodge(hero->getQuickness() / 2)) + " %)");
-                sout("INSERT: \"attack strong\" for a strong attack");
-                sout("the enemy has " + std::to_string(combatMonster->getHealth()) + " hp");
-                sout("You have " + std::to_string(hero->getHealth()) + " hp");
+                println("INSERT: \"attack strong\" for a strong attack");
+                println("the enemy has " + std::to_string(combatMonster->getHealth()) + " hp");
+                println("You have " + std::to_string(hero->getHealth()) + " hp");
             } else if (contains == 2){
-                sout("that monster is already dead");
+                println("that monster is already dead");
             }else {
-                sout("no such monster available");
+                println("no such monster available");
             }
     }
 }
@@ -448,4 +468,8 @@ void Game::equip(std::vector<std::string> *params) {
     else {
         println("Invalid command");
     }
+}
+
+Entity *Game::getHero() {
+    return hero;
 }
