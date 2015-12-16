@@ -19,9 +19,23 @@ Game::Game(int *exit) {
 
     //add all the monsters
     spider = new Monster("spider", 1, 3, 20, 10, 70, 0, 2);
+    //the monster that kills you when you enter a forbidden room
+    killed = new Monster("the grim reaper", 2, 3, 9001,9001,9001,9001,9001);
 
     //assign monsters to a room
     rooms[0]->addMonster(spider);
+
+    //assign killed
+    rooms[1]->addMonster(killed);
+    rooms[24]->addMonster(killed);
+    rooms[43]->addMonster(killed);
+    rooms[68]->addMonster(killed);
+    rooms[70]->addMonster(killed);
+    rooms[71]->addMonster(killed);
+    rooms[72]->addMonster(killed);
+    rooms[76]->addMonster(killed);
+
+
 
     //the start, maybe make tutorial here, maybe even a function to load a previous game
     std::cout << "please enter the username you want to use" << std::endl;

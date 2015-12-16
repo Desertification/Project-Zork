@@ -9,7 +9,7 @@
 
         //0 outside on the street
         rooms.push_back(new Room("You see a house in the distance..\nMaybe you'll find shelter in there from the dark and the rain\n"));
-        //1 walk on TODO implement death
+        //1 walk on
         rooms.push_back(new Room("you chose to keep walking in the dark forest in the rain.\nYou have tripped over a fallen branch, hit your head and died.\n"));
         //2 the house
         rooms.push_back(new Room("The front door seems to be locked\nMaybe there is a back door open.\n"));
@@ -96,7 +96,7 @@
         //23
         rooms.push_back(new Room("A person is standing in the middle of the room.\n"));
 
-        //24 TODO implement death
+        //24
         rooms.push_back(new Room("The person was a black eyed being. A creature of evil.\n"
                                          "Because you came closer in a friendly manner, the creature was able to take a swing at you.\n"
                                          "You feel his abnormal long nails slice your neck. You DIED."));
@@ -185,7 +185,7 @@
         //42 TODO add hydra
         rooms.push_back(new Room("The next room smells weird. There is a rare skinn lying around and a weird staircase going up.\n"));
 
-        //43 TODO add death
+        //43
         rooms.push_back(new Room("As you climb up the staircase, you notice there is a room before the staircase continues.\n"
                                          "The last of the 4 horsemen of the apocalypse, Death itself stands before you. \n"
                                          "He wants to take your life and the life of evryone that doesn't believe in God.\n"));
@@ -310,22 +310,22 @@
                                          "You look at the time and notice only one minute has passed since you entered that home. You wonder how that is possible.\n"
                                          "YOU HAVE WON!\n"));
 
-        //68 todo implement death
+        //68
         rooms.push_back(new Room("\"You dare lie to an angel?\"\n"
                                          "YOU DIED\n"));
 
         //69
         rooms.push_back(new Room("\"Are you lying?\"\n"));
 
-        //70 todo implement death
+        //70
         rooms.push_back(new Room("After giving it to them, they still kill because they know about the dead hooker in your basement.\n"
                                          "YOU DIED\n"));
 
-        //71 todo implement death
+        //71
         rooms.push_back(new Room("Jezus says you are selfish, and the flame in the bowl suddenly encompasses the whole room. You are burnt alive.\n"
                                          "YOU DIED\n"));
 
-        //72 todo implement death
+        //72
         rooms.push_back(new Room("\"You dare lie to an angel?\"\n"
                                          "YOU DIED\n"));
 
@@ -338,7 +338,7 @@
         //75
         rooms.push_back(new Room("\"Are you lying?\"\n"));
 
-        //76 todo implement death
+        //76
         rooms.push_back(new Room("\"You dare lie to an angel?\"\n"
                                          "YOU DIED\n"));
 

@@ -19,6 +19,7 @@ private:
     std::vector<Connection *> connections;
 
     Monster *spider;
+    Monster *killed;
 
     Room* current_room;
     Hero* hero;
