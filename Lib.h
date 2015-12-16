@@ -11,7 +11,7 @@
 #include <ncurses.h>
 #include <vector>
 #include <algorithm>
-#include "Living_Things/entity.h"
+#include "enities/entity.h"
 
 extern bool using_ncurses;
 extern WINDOW *parentwin;

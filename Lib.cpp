@@ -3,10 +3,10 @@
 //
 
 #include "Lib.h"
-#include "Living_Things/entity.h"
+#include "enities/entity.h"
 #include <iostream>
 
-bool using_ncurses=true;
+bool using_ncurses = true;
 WINDOW *parentwin = nullptr;
 WINDOW *answerwin = nullptr;
 WINDOW *commandwin = nullptr;

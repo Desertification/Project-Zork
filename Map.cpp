@@ -12,17 +12,22 @@
 #include "enities/monsters/War.h"
 #include "enities/monsters/Ortheos.h"
 #include "enities/monsters/Cyclops.h"
+#include "enities/monsters/Spider.h"
+#include "Items/Sword.h"
 
 std::vector<Room *> getRooms(){
         std::vector<Room *> rooms;
 
         //0 outside on the street
         rooms.push_back(new Room("You see a house in the distance..\nMaybe you'll find shelter in there from the dark and the rain\n"));
-        //rooms.back()->addMonster();
+
         //1 walk on
         rooms.push_back(new Room("you chose to keep walking in the dark forest in the rain.\nYou have tripped over a fallen branch, hit your head and died.\n"));
         //2 the house
         rooms.push_back(new Room("The front door seems to be locked\nMaybe there is a back door open.\n"));
+        rooms.back()->addMonster(new Spider());
+        rooms.back()->addInventory(new Inventory("ground"));
+        rooms.back()->getInventory("ground")->addItem(new Sword());
         //3 the door outside
         rooms.push_back(new Room("You see the door that leads towards the kitchen\n"));
         //4 the kitchen

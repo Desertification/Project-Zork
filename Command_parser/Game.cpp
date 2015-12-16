@@ -66,11 +66,11 @@ void Game::gotoNonCombat() {
     for (Monster *monster : *monsters) {
         if (monster->getAggressiveness()==3){
             aggressiveMonster = true;
-            combatMoster = monster;
+            combatMonster = monster;
         }
     }
     if(aggressiveMonster == true){
-        println("\n" + combatMoster->getName()+" has attacked you.");
+        println("\n" + combatMonster->getName()+" has attacked you.");
         status = 1;
     } else{
         status = 0;
