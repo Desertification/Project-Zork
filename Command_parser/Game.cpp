@@ -53,7 +53,6 @@ Game::Game(int *exit) {
     current_room = rooms[0];
     //CommandInterpreter interpreter(current_room, &exit, hero);
     println(current_room->explore());
-    showPossibleCommands();
     this->quit = exit;
 }
 // todo replace with Lib println to be replaced by gui function
@@ -207,7 +206,7 @@ void Game::go(std::vector<std::string> *params) {
                 } else {
                     //if the room is recognized, go to the new room, and explore it
                     current_room = current_room->go((*params)[0]);
-                    std::cout << current_room->explore();
+                    println(current_room->explore());
                     //automatically enter combat when there are monsters with aggresiveness level 3 in the room
                     std::vector<Monster *> *monsters = current_room->getMonsters();
                     int aggrasiveMonster = false;
