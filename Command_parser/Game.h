@@ -21,7 +21,7 @@ private:
     Monster *spider;
 
     Room* current_room;
-    Hero* hero;
+    Hero* hero= nullptr;
 
     int * quit;
 
@@ -63,6 +63,7 @@ public:
     std::vector<Inventory*> getAllReachableInventories();
 
     void showPossibleCommands();
+    Entity *getHero();
 };
 
 

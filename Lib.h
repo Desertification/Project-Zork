@@ -11,6 +11,7 @@
 #include <ncurses.h>
 #include <vector>
 #include <algorithm>
+#include "Living_Things/entity.h"
 
 extern bool using_ncurses;
 extern WINDOW *parentwin;
@@ -34,6 +35,9 @@ void println(std::string text);
 
 //get possibelcommands
 void setpossiblecommands(std::vector<std::string> possiblecommands);
+
+//update waarden speler
+void updatevaluesplayer(Entity *hero);
 
 std::string getLine();
 

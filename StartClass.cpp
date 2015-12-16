@@ -36,7 +36,10 @@ startClass::startClass() {
 
 
     while(exit == 0) {
-        if(using_ncurses){game.showPossibleCommands();}
+        if(using_ncurses){
+            if(game.getHero()){updatevaluesplayer(game.getHero());}
+            game.showPossibleCommands();
+        }
         //listen for commands that are linked to methods from the Game class
         parser.listen(&game);
 

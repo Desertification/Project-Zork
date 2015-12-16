@@ -3,6 +3,7 @@
 //
 
 #include "Lib.h"
+#include "Living_Things/entity.h"
 #include <iostream>
 
 bool using_ncurses=true;
@@ -77,7 +78,6 @@ void println(std::string text) {
 
 void setpossiblecommands(std::vector<std::string> possibleCommands) {
 
-
     if(using_ncurses) {
         menu->clear();
         for (std::string command: possibleCommands) {
@@ -140,3 +140,28 @@ std::string getLine() {
 }
 
 
+void updatevaluesplayer(Entity *hero) {
+
+    werase(valuewin);
+    mvwprintw(valuewin,0,0,"The Player:");
+    mvwprintw(valuewin,1,0,"----------");
+    mvwprintw(valuewin,3,0,"Name:");
+    mvwprintw(valuewin,4,0,hero->getName().c_str());
+    mvwprintw(valuewin,3,0,"Health:");
+    mvwprintw(valuewin,4,0, std::to_string(hero->getHealth()).c_str());
+    mvwprintw(valuewin,6,0,"Stamina:");
+    mvwprintw(valuewin,7,0, std::to_string(hero->getStamina()).c_str());
+    mvwprintw(valuewin,9,0,"Damage:");
+    mvwprintw(valuewin,10,0, std::to_string(hero->getDamage()).c_str());
+    mvwprintw(valuewin,12,0,"Item:");
+    if(hero->getItem()) {
+        mvwprintw(valuewin, 13, 0, hero->getItem()->getName().c_str());
+    }else{
+        mvwprintw(valuewin,6,0,"No Item");
+    }
+    wrefresh(valuewin);
+
+
+
+
+}

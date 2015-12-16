@@ -859,3 +859,7 @@ void Game::equip(std::vector<std::string> *params) {
         println("Invalid command");
     }
 }
+
+Entity *Game::getHero() {
+    return hero;
+}
