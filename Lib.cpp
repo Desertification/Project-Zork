@@ -6,7 +6,7 @@
 #include "Living_Things/entity.h"
 #include <iostream>
 
-bool using_ncurses=true;
+bool using_ncurses=false;
 WINDOW *parentwin = nullptr;
 WINDOW *answerwin = nullptr;
 WINDOW *commandwin = nullptr;
@@ -16,7 +16,6 @@ std::string line = "";
 
 void refreshwindow(WINDOW *win) {
     wrefresh(win);
-
 }
 
 void createwindows() {
