@@ -50,6 +50,9 @@ int Entity::takeDamage(int base_damage, int attackQuickness) {
     }
     else{
         int hurt = base_damage - armor;
+        if (hurt<0){
+            hurt = 0;
+        }
         health = health - hurt;
         return hurt;
     }

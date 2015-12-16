@@ -36,6 +36,7 @@ private:
     Monster *combatMoster; //the last monster you were in combat with
     Inventory*selectedInventory; // to store the selected inventory
     void damageGiven(int givenDamage);
+    void gotoNonCombat();
 public:
     Game(int * exit);
 

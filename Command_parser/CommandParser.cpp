@@ -37,7 +37,6 @@ Command * CommandParser::listen(Game * game) {
 
         int i = 0;
         while (i < commands.size() &&
-               // fixme ALEX segmentation fault here when line is ""(nothing)
                commands[i]->key.compare(params[0]) != 0) {
 
             i++;

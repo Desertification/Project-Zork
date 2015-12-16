@@ -338,7 +338,7 @@
         //75
         rooms.push_back(new Room("\"Are you lying?\"\n"));
 
-        //76
+        //76"\n"
         rooms.push_back(new Room("\"You dare lie to an angel?\"\n"
                                          "YOU DIED\n"));
 

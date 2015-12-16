@@ -18,12 +18,13 @@ Game::Game(int *exit) {
 
 
     //add all the monsters
-    spider = new Monster("spider", 1, 3, 20, 10, 70, 0, 2);
+    spider = new Monster("A spider", 1, 3, 20, 10, 70, 0, 2);
     //the monster that kills you when you enter a forbidden room
     killed = new Monster("the grim reaper", 2, 3, 9001,9001,9001,9001,9001);
 
     //assign monsters to a room
-    rooms[0]->addMonster(spider);
+    rooms[2]->addMonster(spider);
+    rooms[2]->addMonster(new Monster("A spider", 1, 3, 20, 10, 70, 0, 2));
 
     //assign killed
     rooms[1]->addMonster(killed);
@@ -58,6 +59,24 @@ Game::Game(int *exit) {
 // todo replace with Lib println to be replaced by gui function
 void Game::sout(std::string message) {
     println(message);
+}
+
+void Game::gotoNonCombat() {
+    std::vector<Monster *> *monsters = current_room->getMonsters();
+    int aggressiveMonster = false;
+    for (Monster *monster : *monsters) {
+        if (monster->getAggressiveness()==3){
+            aggressiveMonster = true;
+            combatMoster = monster;
+        }
+    }
+    if(aggressiveMonster == true){
+        println("\n" + combatMoster->getName()+" has attacked you.");
+        status = 1;
+    } else{
+        status = 0;
+    }
+
 }
 
 void Game::exit(std::vector<std::string> *params) {
@@ -148,7 +167,7 @@ void Game::damageGiven(int givenDamage) {
             //set the monster as killed
             combatMoster->killed();
             println("you have triumphed over your enemy");
-            status = 0;
+            gotoNonCombat();
         }else{
             println(combatMoster->getName() + " now has " + std::to_string(combatMoster->getHealth()) + " hp left");
         }
@@ -207,17 +226,17 @@ void Game::go(std::vector<std::string> *params) {
                     //if the room is recognized, go to the new room, and explore it
                     current_room = current_room->go((*params)[0]);
                     println(current_room->explore());
-                    //automatically enter combat when there are monsters with aggresiveness level 3 in the room
+                    //automatically enter combat when there are monsters with aggressiveness level 3 in the room
                     std::vector<Monster *> *monsters = current_room->getMonsters();
-                    int aggrasiveMonster = false;
+                    int aggressiveMonster = false;
                     for (Monster *monster : *monsters) {
                         if (monster->getAggressiveness()==3){
-                            aggrasiveMonster = true;
+                            aggressiveMonster = true;
                             combatMoster = monster;
                         }
                     }
-                    if(aggrasiveMonster == true){
-                        println("A monster attacked you when you entered the room");
+                    if(aggressiveMonster == true){
+                        println(combatMoster->getName() + " attacked you when you entered the room");
                         status = 1;
                     }
                 }
