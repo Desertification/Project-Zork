@@ -299,7 +299,7 @@ Game::Game(int *exit) {
     rooms.push_back(new Room("You get rescued by the good fairy.\n"
                                      "Out of gratitude she gives you a glass bowl with a flame inside.\n"));
     //66
-    rooms.push_back(new Room("Congratulations" + hero->getName() + "\n"
+    rooms.push_back(new Room("Congratulations" "\n"
                                      "You have reached the kingdom of christ and saved the world.\n"
                                      "Jezus comes to you, and asks :\n"
                                      "\"Can i please have the glass bowl with the burning flame.\"\n"));
@@ -746,12 +746,6 @@ Game::Game(int *exit) {
 
 
 
-
-
-
-
-
-
     //add all the monsters
     spider = new Monster("spider", 1, 3, 20, 10, 70, 0, 2);
 
@@ -764,7 +758,7 @@ Game::Game(int *exit) {
     getline(std::cin, username);
     hero = new Hero(username);
     //the first room
-    current_room = rooms[0];
+    current_room = rooms[50];
     //CommandInterpreter interpreter(current_room, &exit, hero);
     std::cout << current_room->explore();
 
