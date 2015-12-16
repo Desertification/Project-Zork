@@ -29,7 +29,6 @@ private:
     int previous_status = 0; // when returning from inventory
 
     void sout(std::string message);
-    void showPossibleCommands();
 
     //all stuff for the combat
     void inCombat();
@@ -63,6 +62,7 @@ public:
     // returns vector of inventories the player can access at that time
     std::vector<Inventory*> getAllReachableInventories();
 
+    void showPossibleCommands();
 };
 
 

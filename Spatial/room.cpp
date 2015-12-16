@@ -11,10 +11,10 @@ std::string Room::explore() {
     // dump environment, connections and instructions in the console
     std::string result = "";
     result += description;
-    result += "Possible actions: \r\n";
+    result += "Possible actions: \n";
     // iterate every connection the room has (also instruction)
     for (unsigned int i = 0; i < connections.size(); i++) {
-        result += connections[i]->description(this) + "\r\n";
+        result += connections[i]->description(this) + "\n";
         //result += "INSERT: \"go " + connections[i]->instruction(this) + "\" to go there \r\n";
     }
     return result;

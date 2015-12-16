@@ -24,7 +24,12 @@ void CommandParser::registerCommand(std::string key, commandPointer function) {
 Command * CommandParser::listen(Game * game) {
 
     std::string line;
-    std::getline(std::cin, line);
+
+    if(using_ncurses){
+        line = getLine();
+    }else{
+        std::getline(std::cin, line);
+    }
 
     // Tokenize
     std::vector<std::string> params = split(line, ' ');

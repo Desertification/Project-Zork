@@ -36,7 +36,9 @@ startClass::startClass() {
 
 
     while(exit == 0) {
+        if(using_ncurses){game.showPossibleCommands();}
         //listen for commands that are linked to methods from the Game class
         parser.listen(&game);
+
     }
 }

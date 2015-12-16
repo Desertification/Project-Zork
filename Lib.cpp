@@ -75,54 +75,68 @@ void println(std::string text) {
 
 
 
-void createmenu() {
-
-    //menu maken
-    int ch, i=0, width=7;
-
-    // now print all the menu items and highlight the first one
-    werase(commandwin);
-    box(commandwin,0,0);
-    for( i=0; i<menu->size(); i++ ) {
-        if( i == 0 )
-            wattron( commandwin, A_STANDOUT ); // highlights the first item.
-        else
-            wattroff( commandwin, A_STANDOUT );
-        mvwprintw( commandwin, i+1, 2, menu->at(i).c_str());
-    }
-    wrefresh(commandwin);// update the terminal screen
-
-    i = 0;
-    noecho(); // disable echoing of characters on the screen
-    keypad( commandwin, TRUE ); // enable keyboard input for the window.
-    curs_set( 0 ); // hide the default screen cursor.
+void setpossiblecommands(std::vector<std::string> possibleCommands) {
 
 
-    // get the input
-    while(( ch = wgetch(commandwin)) != 10 ){
-
-        // right pad with spaces to make the items appear with even width.
-        mvwprintw( commandwin, i+1, 2, menu->at(i).c_str());
-        // use a variable to increment or decrement the value based on the input.
-        switch( ch ) {
-            case KEY_UP:
-                i--;
-                i = ( i<0 ) ? menu->size()-1 : i;
-                break;
-            case KEY_DOWN:
-                i++;
-                i = ( i>menu->size()-1 ) ? 0 : i;
-                break;
+    if(using_ncurses) {
+        menu->clear();
+        for (std::string command: possibleCommands) {
+            menu->push_back(command);
         }
-        // now highlight the next item in the list.
-        wattron( commandwin, A_STANDOUT );
-        mvwprintw( commandwin, i+1, 2, menu->at(i).c_str());
-        wattroff( commandwin, A_STANDOUT );
+
+        //menu maken
+        int ch, i = 0, width = 7;
+
+        // now print all the menu items and highlight the first one
+        werase(commandwin);
+        box(commandwin, 0, 0);
+        for (i = 0; i < menu->size(); i++) {
+            if (i == 0)
+                wattron(commandwin, A_STANDOUT); // highlights the first item.
+            else
+                wattroff(commandwin, A_STANDOUT);
+            mvwprintw(commandwin, i + 1, 2, menu->at(i).c_str());
+        }
+        wrefresh(commandwin);// update the terminal screen
+
+        i = 0;
+        noecho(); // disable echoing of characters on the screen
+        keypad(commandwin, TRUE); // enable keyboard input for the window.
+        curs_set(0); // hide the default screen cursor.
+
+
+        // get the input
+        while ((ch = wgetch(commandwin)) != 10) {
+
+            // right pad with spaces to make the items appear with even width.
+            mvwprintw(commandwin, i + 1, 2, menu->at(i).c_str());
+            // use a variable to increment or decrement the value based on the input.
+            switch (ch) {
+                case KEY_UP:
+                    i--;
+                    i = (i < 0) ? menu->size() - 1 : i;
+                    break;
+                case KEY_DOWN:
+                    i++;
+                    i = (i > menu->size() - 1) ? 0 : i;
+                    break;
+            }
+            // now highlight the next item in the list.
+            wattron(commandwin, A_STANDOUT);
+            mvwprintw(commandwin, i + 1, 2, menu->at(i).c_str());
+            wattroff(commandwin, A_STANDOUT);
+        }
+        line = (std::string) menu->at(i).c_str();
+    }else{
+        for (std::string command: possibleCommands) {
+            println(command);
+        }
     }
-    line = (std::string) menu->at(i).c_str();
 }
 
 std::string getLine() {
     line.erase(std::remove(line.begin(),line.end(),'\"'),line.end());
     return line;
 }
+
+

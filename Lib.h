@@ -29,11 +29,11 @@ void createwindows();
 //functie om in answerwindow te printen
 void printanswerwindow();
 
-//functie om menu te printen
-void createmenu();
-
 //to print on terminal or on window
 void println(std::string text);
+
+//get possibelcommands
+void setpossiblecommands(std::vector<std::string> possiblecommands);
 
 std::string getLine();
 

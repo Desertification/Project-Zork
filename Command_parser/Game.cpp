@@ -474,6 +474,7 @@ Game::Game(int *exit) {
     current_room = rooms[0];
     //CommandInterpreter interpreter(current_room, &exit, hero);
     println(current_room->explore());
+    showPossibleCommands();
     this->quit = exit;
 }
 // todo replace with Lib println to be replaced by gui function
@@ -486,7 +487,7 @@ void Game::exit(std::vector<std::string> *params) {
 }
 
 void Game::inCombat() {
-    sout("I'm sorry, i can't let you do that while you're in combat.");
+    println("I'm sorry, i can't let you do that while you're in combat.");
 }
 
 //TODO show the possible commands for all combat options
@@ -494,7 +495,9 @@ void Game::showPossibleCommands() {
 
     std::vector<std::string> possibleCommands;
     //show special commands
-    possibleCommands.push_back("\"show commands\"");
+    if(!using_ncurses){
+        possibleCommands.push_back("\"show commands\"");
+    }
 
     if (status == 0){ // only when in normal mode
         //show all possible rooms
@@ -554,20 +557,8 @@ void Game::showPossibleCommands() {
         // leave inventory command
         possibleCommands.push_back("\"leave " + selectedInventory->getName() + "\"");
     }
-
-    possibleCommands.push_back("\"exit\"");
-
-    //print all this stuff
-    /*for (std::string command: possibleCommands) {
-        sout(command);
-    }*/
-
-    //print all this stuff
-    menu->clear();
-    for (std::string command: possibleCommands) {
-        menu->push_back(command);
-    }
-    createmenu();
+    if(!using_ncurses){possibleCommands.push_back("\"exit\"");}
+    setpossiblecommands(possibleCommands);
 }
 
 void Game::damageGiven(int givenDamage) {
@@ -609,7 +600,7 @@ void Game::sayHello(std::vector<std::string> *params) {
             inCombat();
             break;
         default:
-            std::cout << "Dude ... HELLLLLLOOOOO ......" << std::endl;
+            println("Dude ... HELLLLLLOOOOO ......");
     }
 }
 
@@ -619,7 +610,7 @@ void Game::sayBye(std::vector<std::string> *params) {
             inCombat();
             break;
         default:
-            std::cout << "Dude ... BE GONEEEEE ......" << std::endl;
+            println("Dude ... BE GONEEEEE ......" );
     }
 }
 
@@ -630,14 +621,14 @@ void Game::go(std::vector<std::string> *params) {
             break;
         default:
             if (params->size() >= 1) {
-                std::cout << "Going to room " << (*params)[0] << std::endl;
+                println("Going to room "+(*params)[0]);
                 //if the room isn't recognized
                 if (current_room->go((*params)[0]) == NULL) {
                     sout("No such room aviable");
                 } else {
                     //if the room is recognized, go to the new room, and explore it
                     current_room = current_room->go((*params)[0]);
-                    std::cout << current_room->explore();
+                    println(current_room->explore());
                 }
             }
     }
@@ -649,14 +640,14 @@ void Game::show(std::vector<std::string> *params) {
         showPossibleCommands();
     }
         //show a random number, going to let this in the code as a kind of easter egg
-    else if ((*params)[0] == "random") {
+    /*else if ((*params)[0] == "random") {
         std::random_device *randomDevice = new std::random_device();
-        std::cout << randomDevice->operator()() << std::endl;
-        std::cout << randomDevice->operator()() % 100 << std::endl; //between 0 and 100
+        println(randomDevice->operator()());
+        println(randomDevice->operator()() % 100); //between 0 and 100
         delete randomDevice;
-    }
+    }*/
     else {
-        sout("No such command");
+        println("No such command");
     }
 }
 
