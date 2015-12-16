@@ -9,9 +9,9 @@
 #include <string>
 #include <vector>
 #include <sstream>
-#include "../Living_Things/Monster.h"
+#include "../enities/Monster.h"
 #include "../Spatial/connection.h"
-#include "../Living_Things/Hero.h"
+#include "../enities/Hero.h"
 
 class Game {
 private:
@@ -34,7 +34,7 @@ private:
 
     //all stuff for the combat
     void inCombat();
-    Monster *combatMoster; //the last monster you were in combat with
+    Monster *combatMonster; //the last monster you were in combat with
     Inventory*selectedInventory; // to store the selected inventory
     void damageGiven(int givenDamage);
 public:

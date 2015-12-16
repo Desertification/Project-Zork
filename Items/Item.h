@@ -6,7 +6,7 @@
 #define GAMETEST_ITEM_H
 
 #include <string>
-#include "../Living_Things/entity.h"
+#include "../enities/entity.h"
 //#include "../Spatial/room.h"
 class Entity;
 class Room;

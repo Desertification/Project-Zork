@@ -24,7 +24,7 @@ class Entity {
 protected:
     Inventory* inventory;
 public:
-    Entity(std::string, int health, int stamina, int quickness, int armor, int damage);
+    Entity(std::string name, int health, int stamina, int quickness, int armor, int damage);
     std::string getName();
     int getChanceToDodge(int attackQuickness);
     int getHealth();

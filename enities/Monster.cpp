@@ -4,10 +4,9 @@
 
 #include "Monster.h"
 
-Monster::Monster(std::string name, unsigned int id, int aggressiveness, int health, int stamina, int quickness, int armor, int damage)
+Monster::Monster(std::string name, int aggressiveness, int health, int stamina, int quickness, int armor, int damage)
     : Entity(name, health, stamina, quickness, armor, damage){
     this->aggressiveness = aggressiveness;
-    this->id = id;
     inventory->setName(name + "_corpse"); // assume monster is dead when you access its inventory
 }
 
@@ -19,6 +18,3 @@ void Monster::killed() {
     aggressiveness = -1;
 }
 
-unsigned int Monster::getId() {
-    return id;
-}

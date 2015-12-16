@@ -9,7 +9,7 @@
 #include <string>
 #include <vector>
 #include "connection.h"
-#include "../Living_Things/Monster.h"
+#include "../enities/Monster.h"
 #include "../Inventory.h"
 
 

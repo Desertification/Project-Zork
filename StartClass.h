@@ -8,7 +8,7 @@
 #include "Command_parser/Game.h"
 #include "Command_parser/CommandParser.h"
 #include "Spatial/connection.h"
-#include "Living_Things/Hero.h"
+#include "enities/Hero.h"
 // todo rename this to GameLoop or something like it
 class startClass {
 public:

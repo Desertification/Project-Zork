@@ -18,14 +18,14 @@ Game::Game(int *exit) {
 
 
     //add all the monsters
-    spider = new Monster("spider", 1, 3, 20, 10, 70, 0, 2);
+    //spider = new Monster("spider", 1, 3, 20, 10, 70, 0, 2);
     //the monster that kills you when you enter a forbidden room
-    killed = new Monster("the grim reaper", 2, 3, 9001,9001,9001,9001,9001);
+    killed = new Monster("the grim reaper", 3, 9001,9001,9001,9001,9001);
 
     //assign monsters to a room
-    rooms[0]->addMonster(spider);
+    //rooms[0]->addMonster(spider);
 
-    //assign killed
+    //add 'dead' ends in rooms
     rooms[1]->addMonster(killed);
     rooms[24]->addMonster(killed);
     rooms[43]->addMonster(killed);
@@ -140,25 +140,25 @@ void Game::showPossibleCommands() {
 
 void Game::damageGiven(int givenDamage) {
     if (givenDamage == -1) {
-        sout(combatMoster->getName() + " dodged your attack");
+        sout(combatMonster->getName() + " dodged your attack");
     } else {
-        sout("you dealt " + std::to_string(givenDamage) + " to " + combatMoster->getName());
-        if (combatMoster->getHealth() <= 0) {
+        sout("you dealt " + std::to_string(givenDamage) + " to " + combatMonster->getName());
+        if (combatMonster->getHealth() <= 0) {
             //set the monster as killed
-            combatMoster->killed();
+            combatMonster->killed();
             sout("you have triumphed over your enemy");
             status = 0;
         }else{
-            sout(combatMoster->getName() + " now has " + std::to_string(combatMoster->getHealth()) + " hp left");
+            sout(combatMonster->getName() + " now has " + std::to_string(combatMonster->getHealth()) + " hp left");
         }
     }
     //first check if you are still in combat (in case the monster is already dead)
     if (status == 1){
-        givenDamage =  hero->takeDamage(combatMoster->getDamage(), hero->getQuickness());
+        givenDamage =  hero->takeDamage(combatMonster->getDamage(), hero->getQuickness());
         if (givenDamage == -1) {
-            sout("you dodged an attack from " + combatMoster->getName());
+            sout("you dodged an attack from " + combatMonster->getName());
         } else {
-            sout(combatMoster->getName()+ " dealt " + std::to_string(givenDamage) + " to you");
+            sout(combatMonster->getName() + " dealt " + std::to_string(givenDamage) + " to you");
             if (hero->getHealth() <= 0) {
                 *quit = 1;
                 sout("GAME OVER YOU DAMN NOOB");
@@ -201,7 +201,7 @@ void Game::go(std::vector<std::string> *params) {
                 std::cout << "Going to room " << (*params)[0] << std::endl;
                 //if the room isn't recognized
                 if (current_room->go((*params)[0]) == NULL) {
-                    sout("No such room aviable");
+                    sout("No such room available");
                 } else {
                     //if the room is recognized, go to the new room, and explore it
                     current_room = current_room->go((*params)[0]);
@@ -212,7 +212,7 @@ void Game::go(std::vector<std::string> *params) {
                     for (Monster *monster : *monsters) {
                         if (monster->getAggressiveness()==3){
                             aggrasiveMonster = true;
-                            combatMoster = monster;
+                            combatMonster = monster;
                         }
                     }
                     if(aggrasiveMonster == true){
@@ -245,11 +245,11 @@ void Game::attack(std::vector<std::string> *params) {
     switch (status) {
         case 1:
             if ((*params)[0]=="fast") {
-                int givenDamage = combatMoster->takeDamage(hero->getDamage(), hero->getQuickness());
+                int givenDamage = combatMonster->takeDamage(hero->getDamage(), hero->getQuickness());
                 damageGiven(givenDamage);
             }
             else if ((*params)[0]=="strong"){
-                int givenDamage = combatMoster->takeDamage(hero->getDamage() * 2, hero->getQuickness() / 2);
+                int givenDamage = combatMonster->takeDamage(hero->getDamage() * 2, hero->getQuickness() / 2);
                 damageGiven(givenDamage);
             }
             else{
@@ -263,9 +263,9 @@ void Game::attack(std::vector<std::string> *params) {
             unsigned int contains = 0;
             for (Monster *monster : *monsters) {
                 if (monster->getName() == (*params)[0]) {
-                    combatMoster = monster;
+                    combatMonster = monster;
                     //check if the monster isn't dead
-                    if (combatMoster->getAggressiveness()!= -1){
+                    if (combatMonster->getAggressiveness() != -1){
                         contains = 1;
                     } else {
                         contains = 2;
@@ -279,21 +279,21 @@ void Game::attack(std::vector<std::string> *params) {
                 sout("you are now in combat");
 
                 sout(std::string("attack fast (damage :") +
-                     std::to_string(hero->getDamage() - combatMoster->getArmor()) + " chance to hit : " +
+                     std::to_string(hero->getDamage() - combatMonster->getArmor()) + " chance to hit : " +
                      std::to_string(
-                             100 - combatMoster->getChanceToDodge(hero->getQuickness())) + " %)");
+                             100 - combatMonster->getChanceToDodge(hero->getQuickness())) + " %)");
                 sout("INSERT: \"attack fast\" for a normal attack");
                 sout(std::string("attack strong (damage :") +
-                     std::to_string(hero->getDamage() * 2 - combatMoster->getArmor()) + " chance to hit : " +
+                     std::to_string(hero->getDamage() * 2 - combatMonster->getArmor()) + " chance to hit : " +
                      std::to_string(
-                             100 - combatMoster->getChanceToDodge(hero->getQuickness() / 2)) + " %)");
+                             100 - combatMonster->getChanceToDodge(hero->getQuickness() / 2)) + " %)");
                 sout("INSERT: \"attack strong\" for a strong attack");
-                sout("the enemy has " + std::to_string(combatMoster->getHealth()) + " hp");
+                sout("the enemy has " + std::to_string(combatMonster->getHealth()) + " hp");
                 sout("You have " + std::to_string(hero->getHealth()) + " hp");
             } else if (contains == 2){
                 sout("that monster is already dead");
             }else {
-                sout("no such monster aviable");
+                sout("no such monster available");
             }
     }
 }
@@ -425,7 +425,7 @@ void Game::use(std::vector<std::string> *params) {
 void Game::swing(std::vector<std::string> *params) {
     if (hero->getItem() and status == 1){
         if (hero->getItem()->getName() == (*params)[0]){
-            hero->getItem()->swing(hero,combatMoster);
+            hero->getItem()->swing(hero, combatMonster);
         }
         else {
             println("You don't hold that item");

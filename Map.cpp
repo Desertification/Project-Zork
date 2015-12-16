@@ -3,12 +3,22 @@
 //
 
 #include "Map.h"
+#include "Items/Flashlight.h"
+#include "enities/monsters/Dracula.h"
+#include "enities/monsters/Conquest.h"
+#include "enities/monsters/Zombie.h"
+#include "enities/monsters/AggressiveZombie.h"
+#include "enities/monsters/Wendigo.h"
+#include "enities/monsters/War.h"
+#include "enities/monsters/Ortheos.h"
+#include "enities/monsters/Cyclops.h"
 
-    std::vector<Room *> getRooms(){
+std::vector<Room *> getRooms(){
         std::vector<Room *> rooms;
 
         //0 outside on the street
         rooms.push_back(new Room("You see a house in the distance..\nMaybe you'll find shelter in there from the dark and the rain\n"));
+        //rooms.back()->addMonster();
         //1 walk on
         rooms.push_back(new Room("you chose to keep walking in the dark forest in the rain.\nYou have tripped over a fallen branch, hit your head and died.\n"));
         //2 the house
@@ -82,16 +92,19 @@
                                          "In one hand your a holding an angel. In the other you are holding a demon.\n"
                                          "The fate of the world is really in your hands.\n"
                                          "Also, the nose is painted a bit too big.\n"));
-        //21 //TODO add a flashlight object in the coffin
+        //21
         rooms.push_back(new Room("You arrive in a thomb.\n"
                                          "There is a beautifull marble coffin in the middle.\n"
                                          "In the marble there is some engraved text :\n"
                                          "\"Here lise the witness\"\n"
                                          "There is a tunnel on the other side of the coffin\n"));
+        rooms.back()->addInventory(new Inventory("coffin"));
+        rooms.back()->getInventory("coffin")->addItem(new Flashlight());
 
         //22 TODO add in a fight against dracula
         rooms.push_back(new Room("The tunnel ends in a cold and dark room\n"
                                          "In the corner of the room there is a hole in the ground.\n"));
+        rooms.back()->addMonster(new Dracula());
 
         //23
         rooms.push_back(new Room("A person is standing in the middle of the room.\n"));
@@ -130,34 +143,43 @@
                                          "They are here to set a divine apocalypse upon the world.\n"
                                          "\n"
                                          "There is a window in the room. You don't understand how there can be, because you are so deep underground, but you just go with it \n"));
+        rooms.back()->addMonster(new Conquest());
 
         //32 TODO add zombies
         rooms.push_back(new Room("Behind the window is a room filled with zombies.\n"
                                          "You can either face them all and fight your way trough or you can sneak to the other side.\n"));
+        rooms.back()->addMonster(new Zombie());
+        rooms.back()->addMonster(new Zombie());
+        rooms.back()->addMonster(new Zombie());
 
         //33 TODO add zombies
         rooms.push_back(new Room("You sneak across the room, and just before you reach the other side, you trip over your shoe laces.\n"
                                          "The zombies notice, and attack you. You need to defeat them to get to the door on the other side of the room.\n"));
+        rooms.back()->addMonster(new AggressiveZombie());
 
         //34 TODO add monster wendigo
         rooms.push_back(new Room("A wendigo appears. This evil creature wants to possess you to ensure the apocalypse happens.\n"
                                          "Behind the Wendigo is a climable wall.\n"));
+        rooms.back()->addMonster(new Wendigo());
 
         //35 TODO add War
         rooms.push_back(new Room("On top is the second horseman of the apocalypse. His name is War.\n"
                                          "He wants for all people to start killing each other.\n"
                                          "\nBehind the horseman is a crack in the wall.\n"));
+        rooms.back()->addMonster(new War());
 
         //36 TODO add Ortheos
         rooms.push_back(new Room("Behind the crack is a street-like place. It is filled with bones.\n"
                                          "A dog starst running towards you. This however is no normal dog. This is Ortheos! A two headed dog.\n"
                                          "\n Once Ortheos is dead, you will be able to walk down the street\n"));
+        rooms.back()->addMonster(new Ortheos());
 
         //37 TODO add cyclops
         rooms.push_back(new Room("As you continue down the street, the bones continue. Some bones have roman armor, some medieval. The latest of combat gear you see are nazi uniforms.\n"
                                          "You encounter a cyclops. He's huge, but only has one eye. He attacks you with the intint to eat you.\n"
                                          "\n"
                                          "There is a hole in the street that you can jump into.\n"));
+        rooms.back()->addMonster(new Cyclops());
 
         //38 TODO add Famine
         rooms.push_back(new Room("This room is filled with rotten fruit. The third horseman of the apocalypse appears in front of you.\n"
