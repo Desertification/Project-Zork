@@ -6,7 +6,10 @@
 #define GAMETEST_MAP_H
 
 
-void getMap();
+#include "Spatial/room.h"
+
+std::vector<Room *> getRooms();
+std::vector<Connection *> getConnections();
 
 
 #endif //GAMETEST_MAP_H
