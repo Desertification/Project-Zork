@@ -456,7 +456,7 @@ Game::Game(int *exit) {
     spider = new Monster("spider", 1, 3, 20, 10, 70, 0, 2);
 
     //assign monsters to a room
-    rooms[0]->addMonster(spider);
+    rooms[2]->addMonster(spider);
 
     //the start, maybe make tutorial here, maybe even a function to load a previous game
     std::cout << "please enter the username you want to use" << std::endl;
@@ -467,7 +467,7 @@ Game::Game(int *exit) {
     hero->getInventory()->addItem(new Apple());
 
     //the first room
-    current_room = rooms[8];
+    current_room = rooms[0];
     //CommandInterpreter interpreter(current_room, &exit, hero);
     std::cout << current_room->explore();
     this->quit = exit;
@@ -628,6 +628,19 @@ void Game::go(std::vector<std::string> *params) {
                     //if the room is recognized, go to the new room, and explore it
                     current_room = current_room->go((*params)[0]);
                     std::cout << current_room->explore();
+                    //automatically enter combat when there are monsters with aggresiveness level 3 in the room
+                    std::vector<Monster *> *monsters = current_room->getMonsters();
+                    int aggrasiveMonster = false;
+                    for (Monster *monster : *monsters) {
+                        if (monster->getAggressiveness()==3){
+                            aggrasiveMonster = true;
+                            combatMoster = monster;
+                        }
+                    }
+                    if(aggrasiveMonster == true){
+                        sout("A monster attacked you when you entered the room");
+                        status = 1;
+                    }
                 }
             }
     }
