@@ -12,6 +12,9 @@ set(
         Living_Things/Monster.cpp Living_Things/Monster.h Command_parser/Game.cpp Command_parser/Game.h
         Command_parser/Command.cpp Command_parser/Command.h Command_parser/CommandParser.cpp
         Command_parser/CommandParser.h StartClass.cpp StartClass.h Inventory.cpp Inventory.h Items/Item.cpp Items/Item.h
-        Items/TestItem.cpp Items/TestItem.h Lib.cpp Lib.h Items/SwingableItem.cpp Items/SwingableItem.h Items/Flashlight.cpp Items/Flashlight.h Items/Sword.cpp Items/Sword.h Items/ConsumableItem.cpp Items/ConsumableItem.h Items/HealthItem.cpp Items/HealthItem.h Items/Apple.cpp Items/Apple.h Items/BlackApple.cpp Items/BlackApple.h)
+        Items/TestItem.cpp Items/TestItem.h Lib.cpp Lib.h Items/SwingableItem.cpp Items/SwingableItem.h
+        Items/Flashlight.cpp Items/Flashlight.h Items/Sword.cpp Items/Sword.h
+        Items/ConsumableItem.cpp Items/ConsumableItem.h Items/HealthItem.cpp Items/HealthItem.h
+        Items/Apple.cpp Items/Apple.h Items/BlackApple.cpp Items/BlackApple.h neopixel/I2cNeo.cpp neopixel/I2cNeo.h)
 add_executable(gametest ${SOURCE_FILES})
 target_link_libraries(gametest ${CURSES_LIBRARIES})
